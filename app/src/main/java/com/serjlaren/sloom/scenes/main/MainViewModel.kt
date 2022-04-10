@@ -17,12 +17,20 @@ class MainViewModel @Inject constructor(
     val playButtonText = Text()
     val rulesButtonText = Text()
     val aboutButtonText = Text()
+    val startScreenAnimation = Command()
 
     override fun init() {
         viewModelScope.launch {
             playButtonText.emitValueSuspend(resourcesService.getString(R.string.scr_main_btn_play))
             rulesButtonText.emitValueSuspend(resourcesService.getString(R.string.scr_main_btn_rules))
             aboutButtonText.emitValueSuspend(resourcesService.getString(R.string.scr_main_btn_about))
+        }
+    }
+
+    override fun resume() {
+        super.resume()
+        viewModelScope.launch {
+            startScreenAnimation.emitCommandSuspend()
         }
     }
 

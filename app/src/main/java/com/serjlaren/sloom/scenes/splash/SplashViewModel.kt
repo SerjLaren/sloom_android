@@ -16,10 +16,12 @@ class SplashViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val bySerjLarenText = Text()
+    val gameNameText = Text()
     val startSplashAnimation = Command()
 
     override fun init() {
         viewModelScope.launch {
+            gameNameText.emitValueSuspend(resourcesService.getString(R.string.app_name))
             bySerjLarenText.emitValueSuspend(resourcesService.getString(R.string.by_serjlaren))
         }
     }

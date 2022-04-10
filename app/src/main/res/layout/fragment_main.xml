@@ -6,6 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/buttonsLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -13,7 +15,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/playClickableLayout"
