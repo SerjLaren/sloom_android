@@ -26,10 +26,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    override fun start() {}
-
-    override fun stop() {}
-
     fun playClicked() {
         navigateToScreen(AppScreen.GameSettings)
     }

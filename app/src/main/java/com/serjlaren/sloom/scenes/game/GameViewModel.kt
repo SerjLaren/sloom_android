@@ -16,14 +16,6 @@ class GameViewModel @Inject constructor(
 
     }
 
-    override fun start() {
-
-    }
-
-    override fun stop() {
-
-    }
-
     fun wordGuessedClicked() {
         gameService.wordGuessed()
     }

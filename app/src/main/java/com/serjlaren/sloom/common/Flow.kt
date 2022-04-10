@@ -14,10 +14,11 @@ typealias VisibleFlow = SharedFlow<Boolean>
 typealias EnabledFlow = SharedFlow<Boolean>
 typealias DataFlow<T> = SharedFlow<T>
 typealias CommandFlow = SharedFlow<Unit>
+typealias TCommandFlow<T> = SharedFlow<T>
 
 fun <T> Flow<T>.launchWhenStarted(lifecycleOwner: LifecycleOwner, lifecycleScope: LifecycleCoroutineScope) {
     lifecycleScope.launch {
-        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
             this@launchWhenStarted.collect()
         }
     }

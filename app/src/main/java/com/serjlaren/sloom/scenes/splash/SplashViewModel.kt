@@ -6,6 +6,7 @@ import com.serjlaren.sloom.common.AppScreen
 import com.serjlaren.sloom.common.mvvm.BaseViewModel
 import com.serjlaren.sloom.services.ResourcesService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,13 +24,12 @@ class SplashViewModel @Inject constructor(
         }
     }
 
-    override fun start() {
+    override fun resume() {
+        super.resume()
         viewModelScope.launch {
             startSplashAnimation.emitCommandSuspend()
         }
     }
-
-    override fun stop() {}
 
     fun onAnimationEnd() {
         navigateToScreen(AppScreen.Main)

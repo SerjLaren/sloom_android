@@ -6,8 +6,4 @@ class GameSettingsViewModel : BaseViewModel() {
     override fun init() {
 
     }
-
-    override fun start() {}
-
-    override fun stop() {}
 }

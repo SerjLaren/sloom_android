@@ -23,7 +23,7 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
 
     open fun bindViewModel() {
         with(viewModel) {
-            bindData(navigateToScreen) { appScreen ->
+            bindTCommand(navigateToScreen) { appScreen ->
                 when (appScreen) {
                     AppScreen.Splash -> findNavController().navigate(R.id.splashFragment)
                     AppScreen.Main -> findNavController().navigate(R.id.mainFragment)
@@ -51,6 +51,16 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
         viewModel.stop()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.pause()
+    }
+
     protected fun bindText(sharedFlow: TextFlow, textView: TextView) = sharedFlow.onEach { text ->
         textView.text = text
     }.launchWhenStarted(viewLifecycleOwner, lifecycleScope)
@@ -69,5 +79,9 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
 
     protected fun bindCommand(sharedFlow: CommandFlow, block: () -> Unit) = sharedFlow.onEach {
         block()
+    }.launchWhenStarted(viewLifecycleOwner, lifecycleScope)
+
+    protected fun <T> bindTCommand(sharedFlow: TCommandFlow<T>, block: (T) -> Unit) = sharedFlow.onEach { data ->
+        block(data)
     }.launchWhenStarted(viewLifecycleOwner, lifecycleScope)
 }
