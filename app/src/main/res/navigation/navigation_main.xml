@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
     app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.serjlaren.sloom.scenes.splash.SplashFragment"
-        android:label="SplashFragment" />
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash"/>
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.serjlaren.sloom.scenes.main.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main"/>
+
+    <fragment
+        android:id="@+id/gameSettingsFragment"
+        android:name="com.serjlaren.sloom.scenes.game.gamesettings.GameSettingsFragment"
+        android:label="GameSettingsFragment"
+        tools:layout="@layout/fragment_game_settings"/>
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.serjlaren.sloom.scenes.game.GameFragment"
+        android:label="GameFragment"
+        tools:layout="@layout/fragment_game"/>
+
 </navigation>

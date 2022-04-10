@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SLoom</string>
+    <string name="by_serjlaren">by SerjLaren</string>
+
+    <string name="scr_main_btn_play">Play</string>
+    <string name="scr_main_btn_rules">Rules</string>
+    <string name="scr_main_btn_about">About us</string>
 </resources>
