@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.serjlaren.sloom.R
@@ -26,7 +27,12 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
             bindTCommand(navigateToScreen) { appScreen ->
                 when (appScreen) {
                     AppScreen.Splash -> findNavController().navigate(R.id.splashFragment)
-                    AppScreen.Main -> findNavController().navigate(R.id.mainFragment)
+                    AppScreen.Main -> findNavController().navigate(
+                        R.id.mainFragment, null, NavOptions.Builder()
+                            .setPopUpTo(findNavController().backQueue.first().destination.id, true)
+                            .setLaunchSingleTop(true)
+                            .build()
+                    )
                     AppScreen.GameSettings -> findNavController().navigate(R.id.gameSettingsFragment)
                     AppScreen.Game -> findNavController().navigate(R.id.gameFragment)
                 }
