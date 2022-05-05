@@ -14,7 +14,7 @@ import com.serjlaren.sloom.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment(R.layout.fragment_main) {
+class MainFragment : BaseFragment<MainViewModel>(R.layout.fragment_main) {
 
     override val viewModel: MainViewModel by viewModels()
     override val viewBinding: FragmentMainBinding by viewBinding()

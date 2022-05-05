@@ -8,7 +8,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class GameFragment : BaseFragment(R.layout.fragment_game) {
+class GameFragment : BaseFragment<GameViewModel>(R.layout.fragment_game) {
 
     override val viewModel: GameViewModel by viewModels()
     override val viewBinding: ViewBinding by viewBinding()

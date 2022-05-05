@@ -6,7 +6,7 @@ import com.serjlaren.sloom.R
 import com.serjlaren.sloom.common.mvvm.BaseFragment
 import com.serjlaren.sloom.databinding.FragmentGameSettingsBinding
 
-class GameSettingsFragment : BaseFragment(R.layout.fragment_game_settings) {
+class GameSettingsFragment : BaseFragment<GameSettingsViewModel>(R.layout.fragment_game_settings) {
 
     override val viewModel: GameSettingsViewModel by viewModels()
     override val viewBinding: FragmentGameSettingsBinding by viewBinding()

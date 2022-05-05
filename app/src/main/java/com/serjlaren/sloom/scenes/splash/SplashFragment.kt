@@ -14,7 +14,7 @@ import com.serjlaren.sloom.common.scaleObjectAnimators
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashFragment : BaseFragment(R.layout.fragment_splash) {
+class SplashFragment : BaseFragment<SplashViewModel>(R.layout.fragment_splash) {
 
     override val viewModel: SplashViewModel by viewModels()
     override val viewBinding: FragmentSplashBinding by viewBinding()

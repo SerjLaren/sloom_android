@@ -13,9 +13,9 @@ import com.serjlaren.sloom.R
 import com.serjlaren.sloom.common.*
 import kotlinx.coroutines.flow.onEach
 
-abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
+abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
 
-    protected abstract val viewModel: BaseViewModel
+    protected abstract val viewModel: TViewModel
     protected abstract val viewBinding: ViewBinding
 
     open fun initViews() {
