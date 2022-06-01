@@ -5,9 +5,12 @@ import com.serjlaren.sloom.R
 import com.serjlaren.sloom.common.mvvm.BaseViewModel
 import com.serjlaren.sloom.services.GameService
 import com.serjlaren.sloom.services.ResourcesService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class GameSettingsViewModel(
+@HiltViewModel
+class GameSettingsViewModel @Inject constructor(
     private val resourcesService: ResourcesService,
     private val gameService: GameService,
 ) : BaseViewModel() {
@@ -39,6 +42,12 @@ class GameSettingsViewModel(
             maxWordsCount.emitValueSuspend(gameService.maxWordsCount)
             minSecondsPerMove.emitValueSuspend(gameService.minSecondsPerMove)
             maxSecondsPerMove.emitValueSuspend(gameService.maxSecondsPerMove)
+        }
+    }
+
+    override fun resume() {
+        super.resume()
+        viewModelScope.launch {
             applyRanges.emitCommandSuspend()
             selectedTeamsCount.emitValueSuspend(gameService.defaultTeamsCount)
             selectedWordsCount.emitValueSuspend(gameService.defaultWordsCount)

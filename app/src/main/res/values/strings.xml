@@ -7,7 +7,7 @@
     <string name="scr_main_btn_about">About us</string>
 
     <string name="scr_game_settings_btn_play">Play</string>
-    <string name="scr_game_settings_txt_teams_count">Teams count</string>
-    <string name="scr_game_settings_txt_words_count">Words count</string>
-    <string name="scr_game_settings_txt_seconds_per_move">Seconds per move</string>
+    <string name="scr_game_settings_txt_teams_count">Teams count:</string>
+    <string name="scr_game_settings_txt_words_count">Words count:</string>
+    <string name="scr_game_settings_txt_seconds_per_move">Seconds per move:</string>
 </resources>

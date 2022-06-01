@@ -5,7 +5,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.serjlaren.sloom.R
 import com.serjlaren.sloom.common.mvvm.BaseFragment
 import com.serjlaren.sloom.databinding.FragmentGameSettingsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GameSettingsFragment : BaseFragment<GameSettingsViewModel>(R.layout.fragment_game_settings) {
 
     override val viewModel: GameSettingsViewModel by viewModels()
