@@ -4,5 +4,7 @@ sealed class AppScreen {
     object Splash : AppScreen()
     object Main : AppScreen()
     object GameSettings : AppScreen()
-    object Game : AppScreen()
+    class Game() : AppScreen()
+    object Rules: AppScreen()
+    object About: AppScreen()
 }

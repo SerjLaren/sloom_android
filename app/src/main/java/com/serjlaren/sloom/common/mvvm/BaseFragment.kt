@@ -26,15 +26,17 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
         with(viewModel) {
             bindTCommand(navigateToScreen) { appScreen ->
                 when (appScreen) {
-                    AppScreen.Splash -> findNavController().navigate(R.id.splashFragment)
-                    AppScreen.Main -> findNavController().navigate(
+                    is AppScreen.Splash -> findNavController().navigate(R.id.splashFragment)
+                    is AppScreen.Main -> findNavController().navigate(
                         R.id.mainFragment, null, NavOptions.Builder()
                             .setPopUpTo(findNavController().backQueue.first().destination.id, true)
                             .setLaunchSingleTop(true)
                             .build()
                     )
-                    AppScreen.GameSettings -> findNavController().navigate(R.id.gameSettingsFragment)
-                    AppScreen.Game -> findNavController().navigate(R.id.gameFragment)
+                    is AppScreen.GameSettings -> findNavController().navigate(R.id.gameSettingsFragment)
+                    is AppScreen.Game -> findNavController().navigate(R.id.gameFragment)
+                    is AppScreen.About -> TODO()
+                    is AppScreen.Rules -> TODO()
                 }
             }
         }

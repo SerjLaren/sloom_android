@@ -32,6 +32,17 @@ class GameService @Inject constructor(
             timeIsOut()
         }
 
+    val minTeamsCount = GameSettings.minTeamsCount
+    val maxTeamsCount = GameSettings.maxTeamsCount
+    val minWordsCount = GameSettings.minWordsCount
+    val maxWordsCount = GameSettings.maxWordsCount
+    val minSecondsPerMove = GameSettings.minSecondsPerMove
+    val maxSecondsPerMove = GameSettings.maxSecondsPerMove
+
+    val defaultTeamsCount = GameSettings.defaultTeamsCount
+    val defaultWordsCount = GameSettings.defaultWordsCount
+    val defaultSecondsPerMove = GameSettings.defaultSecondsPerMove
+
     private var currentGame = Game(
         allWords = listOf(),
         teams = listOf(),
@@ -48,14 +59,22 @@ class GameService @Inject constructor(
 
     private var currentTeamNumber = 0
 
-    suspend fun initGame(teams: List<Team>, settings: GameSettings) = withContext(ioDispatcher) {
+    suspend fun initGame(settings: GameSettings) = withContext(ioDispatcher) {
         currentGame = currentGame.copy(
             allWords = listOf(), //TODO
-            teams = teams,
+            teams = createTeams(settings),
             guessedWords = listOf(),
             phase = GamePhase.First,
             settings = settings
         )
+    }
+
+    private fun createTeams(settings: GameSettings): List<Team> {
+        val teams = mutableListOf<Team>()
+        for (i in 0 until settings.teamsCount) {
+            teams.add(Team(i, 0))
+        }
+        return teams
     }
 
     fun startMove() {

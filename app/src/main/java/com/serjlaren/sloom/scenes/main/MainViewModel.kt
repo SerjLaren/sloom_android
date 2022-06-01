@@ -39,10 +39,10 @@ class MainViewModel @Inject constructor(
     }
 
     fun rulesClicked() {
-        //TODO
+        navigateToScreen(AppScreen.Rules)
     }
 
     fun aboutClicked() {
-        //TODO
+        navigateToScreen(AppScreen.About)
     }
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/titleLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal_200"
+                tools:text="Teams count:"/>
+            <TextView
+                android:id="@+id/titleValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal_200"
+                android:layout_marginStart="5dp"
+                tools:text="2"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/rangeStartTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:textColor="@color/teal_200"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rangeSeekBar"
+            app:layout_constraintBottom_toBottomOf="@+id/rangeSeekBar"
+            tools:text="2"/>
+
+        <TextView
+            android:id="@+id/rangeEndTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:textColor="@color/teal_200"
+            app:layout_constraintStart_toEndOf="@+id/rangeSeekBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/rangeSeekBar"
+            tools:text="4"/>
+
+        <SeekBar
+            android:id="@+id/rangeSeekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:max="2"
+            android:progress="0"
+            app:layout_constraintTop_toBottomOf="@+id/titleLayout"
+            app:layout_constraintStart_toEndOf="@+id/rangeStartTextView"
+            app:layout_constraintEnd_toStartOf="@+id/rangeEndTextView"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
