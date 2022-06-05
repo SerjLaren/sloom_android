@@ -59,14 +59,20 @@ class GameService @Inject constructor(
 
     private var currentTeamNumber = 0
 
-    suspend fun initGame(settings: GameSettings) = withContext(ioDispatcher) {
-        currentGame = currentGame.copy(
-            allWords = listOf(), //TODO
-            teams = createTeams(settings),
-            guessedWords = listOf(),
-            phase = GamePhase.First,
-            settings = settings
-        )
+    suspend fun initGame(teamsCount: Int, wordsCount: Int, secondsPerMove: Int) = withContext(ioDispatcher) {
+        GameSettings(
+            teamsCount = teamsCount,
+            wordsCount = wordsCount,
+            secondsPerMove = secondsPerMove,
+        ).let { gameSettings ->
+            currentGame = currentGame.copy(
+                allWords = listOf(), //TODO
+                teams = createTeams(gameSettings),
+                guessedWords = listOf(),
+                phase = GamePhase.First,
+                settings = gameSettings
+            )
+        }
     }
 
     private fun createTeams(settings: GameSettings): List<Team> {

@@ -17,7 +17,11 @@ class GameSettingsFragment : BaseFragment<GameSettingsViewModel>(R.layout.fragme
         super.initViews()
         with(viewBinding) {
             playClickableLayout.setOnClickListener {
-                viewModel.playClicked()
+                viewModel.playClicked(
+                    teamsCountLayout.getRangeValue(),
+                    wordsCountLayout.getRangeValue(),
+                    timePerMoveLayout.getRangeValue(),
+                )
             }
         }
     }

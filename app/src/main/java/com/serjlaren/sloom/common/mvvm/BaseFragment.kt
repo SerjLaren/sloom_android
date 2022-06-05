@@ -18,9 +18,7 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
     protected abstract val viewModel: TViewModel
     protected abstract val viewBinding: ViewBinding
 
-    open fun initViews() {
-
-    }
+    open fun initViews() {}
 
     open fun bindViewModel() {
         with(viewModel) {

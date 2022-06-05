@@ -2,6 +2,7 @@ package com.serjlaren.sloom.scenes.game.gamesettings
 
 import androidx.lifecycle.viewModelScope
 import com.serjlaren.sloom.R
+import com.serjlaren.sloom.common.AppScreen
 import com.serjlaren.sloom.common.mvvm.BaseViewModel
 import com.serjlaren.sloom.services.GameService
 import com.serjlaren.sloom.services.ResourcesService
@@ -55,7 +56,10 @@ class GameSettingsViewModel @Inject constructor(
         }
     }
 
-    fun playClicked() {
-
+    fun playClicked(teamsCount: Int, wordsCount: Int, secondsPerMove: Int) {
+        viewModelScope.launch {
+            gameService.initGame(teamsCount, wordsCount, secondsPerMove)
+            navigateToScreen(AppScreen.Game)
+        }
     }
 }
