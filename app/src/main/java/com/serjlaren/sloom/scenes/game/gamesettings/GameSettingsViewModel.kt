@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.serjlaren.sloom.R
 import com.serjlaren.sloom.common.AppScreen
 import com.serjlaren.sloom.common.mvvm.BaseViewModel
+import com.serjlaren.sloom.data.domain.words.WordTopic
 import com.serjlaren.sloom.services.GameService
 import com.serjlaren.sloom.services.ResourcesService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +30,7 @@ class GameSettingsViewModel @Inject constructor(
     val selectedTeamsCount = Data<Int>()
     val selectedWordsCount = Data<Int>()
     val selectedSecondsPerMove = Data<Int>()
+    val wordsTopics = Data<List<String>>()
     val applyRanges = Command()
 
     override fun init() {
@@ -53,6 +55,9 @@ class GameSettingsViewModel @Inject constructor(
             selectedTeamsCount.emitValueSuspend(gameService.defaultTeamsCount)
             selectedWordsCount.emitValueSuspend(gameService.defaultWordsCount)
             selectedSecondsPerMove.emitValueSuspend(gameService.defaultSecondsPerMove)
+            wordsTopics.emitValueSuspend(
+                WordTopic.values().map { it.toString() }
+            )
         }
     }
 

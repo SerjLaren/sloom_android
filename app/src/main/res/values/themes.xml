@@ -15,4 +15,13 @@
         <item name="android:windowBackground">@color/windows_background</item>
         <item name="colorControlHighlight">@color/purple_200</item>
     </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle">
+        <item name="android:background">@drawable/fragment_bottom_sheet_background</item>
+    </style>
 </resources>

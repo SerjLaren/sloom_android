@@ -4,7 +4,7 @@ enum class WordTopic(private val id: Int) {
     All(0),
     Animal(1),
     Person(2),
-    Country(3),
+    Profession(3),
     Action(4),
     Clothes(5),
     Transport(6),
