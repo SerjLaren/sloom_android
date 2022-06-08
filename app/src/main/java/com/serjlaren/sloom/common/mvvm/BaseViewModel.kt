@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel : ViewModel() {
 
     val navigateToScreen = TCommand<AppScreen>()
+    val showToast = TCommand<String>()
 
     abstract fun init()
     open fun start() {}
@@ -20,6 +21,10 @@ abstract class BaseViewModel : ViewModel() {
 
     protected fun navigateToScreen(appScreen: AppScreen) = viewModelScope.launch {
         navigateToScreen.emitValueSuspend(appScreen)
+    }
+
+    protected fun showToast(message: String) = viewModelScope.launch {
+        showToast.emitValueSuspend(message)
     }
 
     protected fun Text(): ViewModelSharedFlow<String> = ViewModelSharedFlowImpl()

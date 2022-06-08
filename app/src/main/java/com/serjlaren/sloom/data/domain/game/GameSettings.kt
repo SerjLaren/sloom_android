@@ -1,12 +1,15 @@
 package com.serjlaren.sloom.data.domain.game
 
+import com.serjlaren.sloom.data.domain.words.WordTopic
+
 class GameSettings(
     val secondsPerMove: Int,
     val wordsCount: Int,
     val teamsCount: Int,
+    val wordsTopics: List<WordTopic>,
 ) {
     companion object {
-        fun defaultSettings() = GameSettings(defaultSecondsPerMove, defaultWordsCount, defaultTeamsCount)
+        fun defaultSettings() = GameSettings(defaultSecondsPerMove, defaultWordsCount, defaultTeamsCount, listOf(defaultWordTopic))
 
         const val minTeamsCount = 2
         const val maxTeamsCount = 4
@@ -18,5 +21,6 @@ class GameSettings(
         const val defaultTeamsCount = 2
         const val defaultWordsCount = 30
         const val defaultSecondsPerMove = 30
+        val defaultWordTopic = WordTopic.All
     }
 }

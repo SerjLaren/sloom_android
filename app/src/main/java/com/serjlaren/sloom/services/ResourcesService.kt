@@ -12,4 +12,6 @@ class ResourcesService @Inject constructor(
 ) {
 
     fun getString(@StringRes id: Int) = context.getString(id)
+
+    fun getString(@StringRes id: Int, vararg args: Any) = context.getString(id, args)
 }

@@ -42,6 +42,7 @@ class GameService @Inject constructor(
     val defaultTeamsCount = GameSettings.defaultTeamsCount
     val defaultWordsCount = GameSettings.defaultWordsCount
     val defaultSecondsPerMove = GameSettings.defaultSecondsPerMove
+    val defaultWordTopic = GameSettings.defaultWordTopic
 
     private var currentGame = Game(
         allWords = listOf(),
@@ -59,14 +60,15 @@ class GameService @Inject constructor(
 
     private var currentTeamNumber = 0
 
-    suspend fun initGame(teamsCount: Int, wordsCount: Int, secondsPerMove: Int) = withContext(ioDispatcher) {
+    suspend fun initGame(teamsCount: Int, wordsCount: Int, secondsPerMove: Int, wordTopicsIndexes: List<Int>) = withContext(ioDispatcher) {
         GameSettings(
             teamsCount = teamsCount,
             wordsCount = wordsCount,
             secondsPerMove = secondsPerMove,
+            wordsTopics = wordTopicsIndexes.map { WordTopic.fromIndex(it) }
         ).let { gameSettings ->
             currentGame = currentGame.copy(
-                allWords = listOf(), //TODO
+                allWords = TestWords.getTestWords(),
                 teams = createTeams(gameSettings),
                 guessedWords = listOf(),
                 phase = GamePhase.First,
@@ -132,7 +134,22 @@ class GameService @Inject constructor(
     private fun currentGameAllWords() = currentGame.allWords.shuffled()
 
     private fun timeIsOut() {
-        currentTeamNumber = if (currentGame.teams.size - 1 == currentTeamNumber) 0 else currentTeamNumber + 1
+        currentTeamNumber = if (currentTeamNumber == currentGame.teams.size - 1) 0 else currentTeamNumber + 1
         currentTeamFlowInternal.tryEmit(currentGame.teams.first { it.number == currentTeamNumber })
     }
+}
+
+object TestWords{
+    fun getTestWords() = listOf(
+        Word("Cat", WordLevel.All, WordTopic.All),
+        Word("Dog", WordLevel.All, WordTopic.All),
+        Word("House", WordLevel.All, WordTopic.All),
+        Word("Water", WordLevel.All, WordTopic.All),
+        Word("Sun", WordLevel.All, WordTopic.All),
+        Word("Glass", WordLevel.All, WordTopic.All),
+        Word("Spoon", WordLevel.All, WordTopic.All),
+        Word("Football", WordLevel.All, WordTopic.All),
+        Word("Round", WordLevel.All, WordTopic.All),
+        Word("Game", WordLevel.All, WordTopic.All),
+    )
 }

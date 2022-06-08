@@ -30,6 +30,22 @@ class WordsTopicsLayout : ConstraintLayout {
     private fun init() {
     }
 
+    private fun onCheckBoxChecked(index: Int, checked: Boolean) {
+        if (!checked)
+            return
+
+        when (index) {
+            0 -> {
+                checkBoxes.filterIndexed { i, _ -> i != 0 }.forEach {
+                    it.isChecked = false
+                }
+            }
+            else -> {
+                checkBoxes.elementAt(0).isChecked = false
+            }
+        }
+    }
+
     fun setCheckBoxes(values: List<String>) {
         checkBoxes.clear()
         viewBinding.checkBoxesLayout.removeAllViews()
@@ -45,8 +61,19 @@ class WordsTopicsLayout : ConstraintLayout {
             })
         }
 
-        checkBoxes.forEach { checkBox ->
+        checkBoxes.forEachIndexed { index, checkBox ->
+            checkBox.setOnCheckedChangeListener { _, checked ->
+                onCheckBoxChecked(index, checked)
+            }
             viewBinding.checkBoxesLayout.addView(checkBox)
         }
     }
+
+    fun setChecked(index: Int, checked: Boolean) {
+        checkBoxes.elementAtOrNull(index)?.let { checkBox ->
+            checkBox.isChecked = checked
+        }
+    }
+
+    fun getCheckedIndexes() = checkBoxes.mapIndexed { index, checkBox -> if (checkBox.isChecked) index else null }.filterNotNull()
 }

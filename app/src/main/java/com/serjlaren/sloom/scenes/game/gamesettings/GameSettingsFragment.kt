@@ -21,6 +21,7 @@ class GameSettingsFragment : BaseFragment<GameSettingsViewModel>(R.layout.fragme
                     teamsCountLayout.getRangeValue(),
                     wordsCountLayout.getRangeValue(),
                     timePerMoveLayout.getRangeValue(),
+                    wordsTopicsLayout.getCheckedIndexes(),
                 )
             }
         }
@@ -45,6 +46,7 @@ class GameSettingsFragment : BaseFragment<GameSettingsViewModel>(R.layout.fragme
                 bindData(selectedWordsCount) { wordsCountLayout.setRangeValue(it) }
                 bindData(selectedSecondsPerMove) { timePerMoveLayout.setRangeValue(it) }
                 bindData(wordsTopics) { wordsTopicsLayout.setCheckBoxes(it) }
+                bindData(selectedWordTopic) { wordsTopicsLayout.setChecked(it, true) }
                 bindCommand(applyRanges) {
                     teamsCountLayout.applyRange()
                     wordsCountLayout.applyRange()

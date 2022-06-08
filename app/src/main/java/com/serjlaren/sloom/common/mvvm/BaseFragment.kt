@@ -3,6 +3,7 @@ package com.serjlaren.sloom.common.mvvm
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -36,6 +37,9 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
                     is AppScreen.About -> TODO()
                     is AppScreen.Rules -> TODO()
                 }
+            }
+            bindTCommand(showToast) { message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
         }
     }

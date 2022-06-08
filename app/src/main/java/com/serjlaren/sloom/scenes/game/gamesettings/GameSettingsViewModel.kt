@@ -31,7 +31,22 @@ class GameSettingsViewModel @Inject constructor(
     val selectedWordsCount = Data<Int>()
     val selectedSecondsPerMove = Data<Int>()
     val wordsTopics = Data<List<String>>()
+    val selectedWordTopic = Data<Int>()
     val applyRanges = Command()
+
+    private val wordTopicsNames =
+        WordTopic.values().map { enumValue ->
+            when (enumValue) {
+                WordTopic.All -> resourcesService.getString(R.string.scr_any_txt_word_topic_all)
+                WordTopic.Animal -> resourcesService.getString(R.string.scr_any_txt_word_topic_animal)
+                WordTopic.Person -> resourcesService.getString(R.string.scr_any_txt_word_topic_person)
+                WordTopic.Profession -> resourcesService.getString(R.string.scr_any_txt_word_topic_profession)
+                WordTopic.Action -> resourcesService.getString(R.string.scr_any_txt_word_topic_action)
+                WordTopic.Clothes -> resourcesService.getString(R.string.scr_any_txt_word_topic_clothes)
+                WordTopic.Transport -> resourcesService.getString(R.string.scr_any_txt_word_topic_transport)
+                WordTopic.Bible -> resourcesService.getString(R.string.scr_any_txt_word_topic_bible)
+            }
+        }
 
     override fun init() {
         viewModelScope.launch {
@@ -45,6 +60,7 @@ class GameSettingsViewModel @Inject constructor(
             maxWordsCount.emitValueSuspend(gameService.maxWordsCount)
             minSecondsPerMove.emitValueSuspend(gameService.minSecondsPerMove)
             maxSecondsPerMove.emitValueSuspend(gameService.maxSecondsPerMove)
+            wordsTopics.emitValueSuspend(wordTopicsNames)
         }
     }
 
@@ -55,15 +71,18 @@ class GameSettingsViewModel @Inject constructor(
             selectedTeamsCount.emitValueSuspend(gameService.defaultTeamsCount)
             selectedWordsCount.emitValueSuspend(gameService.defaultWordsCount)
             selectedSecondsPerMove.emitValueSuspend(gameService.defaultSecondsPerMove)
-            wordsTopics.emitValueSuspend(
-                WordTopic.values().map { it.toString() }
-            )
+            selectedWordTopic.emitValueSuspend(gameService.defaultWordTopic.ordinal)
         }
     }
 
-    fun playClicked(teamsCount: Int, wordsCount: Int, secondsPerMove: Int) {
+    fun playClicked(teamsCount: Int, wordsCount: Int, secondsPerMove: Int, wordTopicsIndexes: List<Int>) {
+        if (wordTopicsIndexes.isEmpty()) {
+            showToast(resourcesService.getString(R.string.scr_game_settings_msg_fill_words_topics))
+            return
+        }
+
         viewModelScope.launch {
-            gameService.initGame(teamsCount, wordsCount, secondsPerMove)
+            gameService.initGame(teamsCount, wordsCount, secondsPerMove, wordTopicsIndexes)
             navigateToScreen(AppScreen.Game)
         }
     }
