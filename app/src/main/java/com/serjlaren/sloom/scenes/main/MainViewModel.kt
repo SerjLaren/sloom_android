@@ -2,7 +2,7 @@ package com.serjlaren.sloom.scenes.main
 
 import androidx.lifecycle.viewModelScope
 import com.serjlaren.sloom.R
-import com.serjlaren.sloom.common.AppScreen
+import com.serjlaren.sloom.common.Screen
 import com.serjlaren.sloom.common.mvvm.BaseViewModel
 import com.serjlaren.sloom.services.ResourcesService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ class MainViewModel @Inject constructor(
     val playButtonText = Text()
     val rulesButtonText = Text()
     val aboutButtonText = Text()
-    val startScreenAnimation = Command()
+    val startScreenAnimationCommand = Command()
 
     override fun init() {
         viewModelScope.launch {
@@ -30,19 +30,19 @@ class MainViewModel @Inject constructor(
     override fun resume() {
         super.resume()
         viewModelScope.launch {
-            startScreenAnimation.emitCommandSuspend()
+            startScreenAnimationCommand.emitCommandSuspend()
         }
     }
 
     fun playClicked() {
-        navigateToScreen(AppScreen.GameSettings)
+        navigateToScreen(Screen.AppScreen.GameSettings)
     }
 
     fun rulesClicked() {
-        navigateToScreen(AppScreen.Rules)
+        navigateToScreen(Screen.AppScreen.Rules)
     }
 
     fun aboutClicked() {
-        navigateToScreen(AppScreen.About)
+        navigateToScreen(Screen.AppScreen.About)
     }
 }

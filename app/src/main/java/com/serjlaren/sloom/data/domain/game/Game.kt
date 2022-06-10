@@ -9,4 +9,14 @@ data class Game(
     val guessedWords: List<Word>,
     val phase: GamePhase,
     val settings: GameSettings,
-)
+) {
+    companion object {
+        fun defaultGame() = Game(
+            allWords = listOf(),
+            teams = listOf(),
+            guessedWords = listOf(),
+            phase = GamePhase.First,
+            settings = GameSettings.defaultSettings(),
+        )
+    }
+}

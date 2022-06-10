@@ -2,7 +2,7 @@ package com.serjlaren.sloom.common.mvvm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.serjlaren.sloom.common.AppScreen
+import com.serjlaren.sloom.common.Screen
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
 
-    val navigateToScreen = TCommand<AppScreen>()
-    val showToast = TCommand<String>()
+    val navigateToScreenCommand = TCommand<Screen>()
+    val showToastCommand = TCommand<String>()
 
     abstract fun init()
     open fun start() {}
@@ -19,12 +19,12 @@ abstract class BaseViewModel : ViewModel() {
     open fun resume() {}
     open fun pause() {}
 
-    protected fun navigateToScreen(appScreen: AppScreen) = viewModelScope.launch {
-        navigateToScreen.emitValueSuspend(appScreen)
+    protected fun navigateToScreen(screen: Screen) = viewModelScope.launch {
+        navigateToScreenCommand.emitValueSuspend(screen)
     }
 
     protected fun showToast(message: String) = viewModelScope.launch {
-        showToast.emitValueSuspend(message)
+        showToastCommand.emitValueSuspend(message)
     }
 
     protected fun Text(): ViewModelSharedFlow<String> = ViewModelSharedFlowImpl()

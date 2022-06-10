@@ -41,7 +41,7 @@ class MainFragment : BaseFragment<MainViewModel>(R.layout.fragment_main) {
                 bindText(playButtonText, playTextView)
                 bindText(rulesButtonText, rulesTextView)
                 bindText(aboutButtonText, aboutTextView)
-                bindCommand(startScreenAnimation) {
+                bindCommand(startScreenAnimationCommand) {
                     AnimatorSet().apply {
                         playTogether(scaleUpButtonsAnim)
                         doOnStart {

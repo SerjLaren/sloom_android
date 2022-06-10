@@ -24,4 +24,8 @@
 
     <string name="scr_game_txt_move_team_f">Team %s</string>
     <string name="scr_game_btn_guessed">Guessed</string>
+
+    <string name="scr_about_txt_about">Привет. Эта игра написана для приятного и интересного времяпровождения в кругу близких людей. И да, исходный код я не скрываю, ты можешь посмотреть его по кнопке внизу. Приятного вечера :)</string>
+    <string name="scr_about_btn_source_code">Исходный код</string>
+    <string name="scr_about_btn_about_me">О разработчике</string>
 </resources>

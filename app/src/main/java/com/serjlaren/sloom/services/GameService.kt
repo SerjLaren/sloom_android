@@ -27,6 +27,15 @@ class GameService @Inject constructor(
     private val currentTeamFlowInternal = MutableSharedFlow<Team>(replay = 1, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val currentTeamFlow = currentTeamFlowInternal.asSharedFlow()
 
+    private val newMoveFlowInternal = MutableSharedFlow<Team>(replay = 0, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.SUSPEND)
+    val newMoveFlow = newMoveFlowInternal.asSharedFlow()
+
+    private val newPhaseFlowInternal = MutableSharedFlow<GamePhase>(replay = 0, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.SUSPEND)
+    val newPhaseFlow = newPhaseFlowInternal.asSharedFlow()
+
+    private val endGameFlowInternal = MutableSharedFlow<List<Team>>(replay = 0, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.SUSPEND)
+    val endGameFlow = endGameFlowInternal.asSharedFlow()
+
     val currentTimeFlow = timerService.timerFlow
         .onCompletion {
             timeIsOut()
@@ -38,26 +47,13 @@ class GameService @Inject constructor(
     val maxWordsCount = GameSettings.maxWordsCount
     val minSecondsPerMove = GameSettings.minSecondsPerMove
     val maxSecondsPerMove = GameSettings.maxSecondsPerMove
-
     val defaultTeamsCount = GameSettings.defaultTeamsCount
     val defaultWordsCount = GameSettings.defaultWordsCount
     val defaultSecondsPerMove = GameSettings.defaultSecondsPerMove
     val defaultWordTopic = GameSettings.defaultWordTopic
 
-    private var currentGame = Game(
-        allWords = listOf(),
-        teams = listOf(),
-        guessedWords = listOf(),
-        phase = GamePhase.First,
-        settings = GameSettings.defaultSettings(),
-    )
-
-    private var currentWord = Word(
-        word = "",
-        level = WordLevel.All,
-        topic = WordTopic.All,
-    )
-
+    private var currentGame = Game.defaultGame()
+    private var currentWord = Word.defaultWord()
     private var currentTeamNumber = 0
 
     suspend fun initGame(teamsCount: Int, wordsCount: Int, secondsPerMove: Int, wordTopicsIndexes: List<Int>) = withContext(ioDispatcher) {

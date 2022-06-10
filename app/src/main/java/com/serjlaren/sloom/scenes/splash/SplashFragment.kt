@@ -58,7 +58,7 @@ class SplashFragment : BaseFragment<SplashViewModel>(R.layout.fragment_splash) {
             with(viewBinding) {
                 bindText(bySerjLarenText, bySerjLarenTextView)
                 bindText(gameNameText, gameNameTextView)
-                bindCommand(startSplashAnimation) {
+                bindCommand(startSplashAnimationCommand) {
                     startLogoAnimations { viewModel.onAnimationEnd() }
                 }
             }

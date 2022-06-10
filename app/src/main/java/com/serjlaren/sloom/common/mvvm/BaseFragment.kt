@@ -1,5 +1,7 @@
 package com.serjlaren.sloom.common.mvvm
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -23,22 +25,27 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
 
     open fun bindViewModel() {
         with(viewModel) {
-            bindTCommand(navigateToScreen) { appScreen ->
-                when (appScreen) {
-                    is AppScreen.Splash -> findNavController().navigate(R.id.splashFragment)
-                    is AppScreen.Main -> findNavController().navigate(
+            bindTCommand(navigateToScreenCommand) { screen ->
+                when (screen) {
+                    //App Screens
+                    is Screen.AppScreen.Splash -> findNavController().navigate(R.id.splashFragment)
+                    is Screen.AppScreen.Main -> findNavController().navigate(
                         R.id.mainFragment, null, NavOptions.Builder()
                             .setPopUpTo(findNavController().backQueue.first().destination.id, true)
                             .setLaunchSingleTop(true)
                             .build()
                     )
-                    is AppScreen.GameSettings -> findNavController().navigate(R.id.gameSettingsFragment)
-                    is AppScreen.Game -> findNavController().navigate(R.id.gameFragment)
-                    is AppScreen.About -> TODO()
-                    is AppScreen.Rules -> TODO()
+                    is Screen.AppScreen.GameSettings -> findNavController().navigate(R.id.gameSettingsFragment)
+                    is Screen.AppScreen.Game -> findNavController().navigate(R.id.gameFragment)
+                    is Screen.AppScreen.About -> findNavController().navigate(R.id.aboutFragment)
+                    is Screen.AppScreen.Rules -> {  } //TODO
+
+                    //External screens
+                    is Screen.ExternalScreen.SourceCode -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SerjLaren/sloom_android")))
+                    is Screen.ExternalScreen.AboutMe -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://about.me/serjlaren")))
                 }
             }
-            bindTCommand(showToast) { message ->
+            bindTCommand(showToastCommand) { message ->
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
         }

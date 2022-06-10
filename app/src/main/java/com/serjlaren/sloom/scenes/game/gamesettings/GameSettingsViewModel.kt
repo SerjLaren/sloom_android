@@ -2,7 +2,7 @@ package com.serjlaren.sloom.scenes.game.gamesettings
 
 import androidx.lifecycle.viewModelScope
 import com.serjlaren.sloom.R
-import com.serjlaren.sloom.common.AppScreen
+import com.serjlaren.sloom.common.Screen
 import com.serjlaren.sloom.common.mvvm.BaseViewModel
 import com.serjlaren.sloom.data.domain.words.WordTopic
 import com.serjlaren.sloom.services.GameService
@@ -32,7 +32,7 @@ class GameSettingsViewModel @Inject constructor(
     val selectedSecondsPerMove = Data<Int>()
     val wordsTopics = Data<List<String>>()
     val selectedWordTopic = Data<Int>()
-    val applyRanges = Command()
+    val applyRangesCommand = Command()
 
     private val wordTopicsNames =
         WordTopic.values().map { enumValue ->
@@ -67,7 +67,7 @@ class GameSettingsViewModel @Inject constructor(
     override fun resume() {
         super.resume()
         viewModelScope.launch {
-            applyRanges.emitCommandSuspend()
+            applyRangesCommand.emitCommandSuspend()
             selectedTeamsCount.emitValueSuspend(gameService.defaultTeamsCount)
             selectedWordsCount.emitValueSuspend(gameService.defaultWordsCount)
             selectedSecondsPerMove.emitValueSuspend(gameService.defaultSecondsPerMove)
@@ -83,7 +83,7 @@ class GameSettingsViewModel @Inject constructor(
 
         viewModelScope.launch {
             gameService.initGame(teamsCount, wordsCount, secondsPerMove, wordTopicsIndexes)
-            navigateToScreen(AppScreen.Game)
+            navigateToScreen(Screen.AppScreen.Game)
         }
     }
 }

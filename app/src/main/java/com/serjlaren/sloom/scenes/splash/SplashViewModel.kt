@@ -2,11 +2,10 @@ package com.serjlaren.sloom.scenes.splash
 
 import androidx.lifecycle.viewModelScope
 import com.serjlaren.sloom.R
-import com.serjlaren.sloom.common.AppScreen
+import com.serjlaren.sloom.common.Screen
 import com.serjlaren.sloom.common.mvvm.BaseViewModel
 import com.serjlaren.sloom.services.ResourcesService
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,7 +16,7 @@ class SplashViewModel @Inject constructor(
 
     val bySerjLarenText = Text()
     val gameNameText = Text()
-    val startSplashAnimation = Command()
+    val startSplashAnimationCommand = Command()
 
     override fun init() {
         viewModelScope.launch {
@@ -29,11 +28,11 @@ class SplashViewModel @Inject constructor(
     override fun resume() {
         super.resume()
         viewModelScope.launch {
-            startSplashAnimation.emitCommandSuspend()
+            startSplashAnimationCommand.emitCommandSuspend()
         }
     }
 
     fun onAnimationEnd() {
-        navigateToScreen(AppScreen.Main)
+        navigateToScreen(Screen.AppScreen.Main)
     }
 }
