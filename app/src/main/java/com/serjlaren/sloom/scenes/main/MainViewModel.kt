@@ -14,6 +14,8 @@ class MainViewModel @Inject constructor(
     private val resourcesService: ResourcesService,
 ) : BaseViewModel() {
 
+    override var doubleBackToExit = true
+
     val playButtonText = Text()
     val rulesButtonText = Text()
     val aboutButtonText = Text()

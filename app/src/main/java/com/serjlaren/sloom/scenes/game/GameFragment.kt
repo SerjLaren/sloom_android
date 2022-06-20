@@ -19,17 +19,35 @@ class GameFragment : BaseFragment<GameViewModel>(R.layout.fragment_game) {
             wordGuessedClickableLayout.setOnClickListener {
                 viewModel.wordGuessedClicked()
             }
+            phaseStartingButtonClickableLayout.setOnClickListener {
+                viewModel.startPhaseClicked()
+            }
+            teamMoveStartingButtonClickableLayout.setOnClickListener {
+                viewModel.startTeamMoveClicked()
+            }
+            gameFinishedButtonClickableLayout.setOnClickListener {
+                viewModel.finishGameButtonClicked()
+            }
         }
     }
 
     override fun bindViewModel() {
         super.bindViewModel()
-
         with(viewBinding) {
             with(viewModel) {
                 bindText(currentTeam, moveTeamTextView)
                 bindText(currentTime, moveSecondsTextView)
                 bindText(currentWord, currentWordTextView)
+                bindText(nextPhase, phaseStartingTextView)
+                bindText(nextTeamText, teamMoveStartingTextView)
+                bindText(gameResultsText, gameFinishedTextView)
+                bindText(guessedButtonText, wordGuessedTextView)
+                bindText(startButtonText, phaseStartingButtonTextView)
+                bindText(startButtonText, teamMoveStartingButtonTextView)
+                bindText(finishButtonText, gameFinishedButtonTextView)
+                bindVisible(phaseStartingVisible, phaseStartingLayout)
+                bindVisible(teamMoveStartingVisible, teamMoveStartingLayout)
+                bindVisible(gameFinishedVisible, gameFinishedLayout)
             }
         }
     }

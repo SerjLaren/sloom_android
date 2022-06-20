@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">SLoom</string>
+    <string name="by_serjlaren">от SerjLaren</string>
+
+    <string name="scr_any_ok">OK</string>
+    <string name="scr_any_msg_press_back_again_to_exit">Для выхода нажми НАЗАД еще раз</string>
+
+    <string name="scr_any_txt_word_topic_all">Все</string>
+    <string name="scr_any_txt_word_topic_animal">Животные</string>
+    <string name="scr_any_txt_word_topic_person">Люди</string>
+    <string name="scr_any_txt_word_topic_profession">Профессии</string>
+    <string name="scr_any_txt_word_topic_action">Действия</string>
+    <string name="scr_any_txt_word_topic_clothes">Одежда</string>
+    <string name="scr_any_txt_word_topic_transport">Транспорт</string>
+    <string name="scr_any_txt_word_topic_bible">Библия</string>
+
+    <string name="scr_main_btn_play">Играть</string>
+    <string name="scr_main_btn_rules">Правила</string>
+    <string name="scr_main_btn_about">Инфо</string>
+
+    <string name="scr_game_settings_btn_play">Играть</string>
+    <string name="scr_game_settings_txt_teams_count">Количество команд:</string>
+    <string name="scr_game_settings_txt_words_count">Количество слов:</string>
+    <string name="scr_game_settings_txt_seconds_per_move">Секунд на ход:</string>
+    <string name="scr_game_settings_txt_words_topics">Темы слов:</string>
+    <string name="scr_game_settings_msg_fill_words_topics">Не выбраны темы слов</string>
+
+    <string name="scr_game_txt_team_f">Команда %s</string>
+    <string name="scr_game_btn_guessed">Угадано</string>
+    <string name="scr_game_txt_next_team_f">Ход команды: Команда %s</string>
+    <string name="scr_game_txt_next_phase_f">Ход: %s</string>
+    <string name="scr_game_txt_phase_1_rules">Объясни слово другими словами (нельзя однокоренные слова и слова на другом языке)</string>
+    <string name="scr_game_txt_phase_2_rules">Покажи слово (нельзя использовать слова и другие звуки)</string>
+    <string name="scr_game_txt_phase_3_rules">Объясни слово другим ОДНИМ словом (нельзя использовать движения)</string>
+    <string name="scr_game_btn_start">Начать</string>
+    <string name="scr_game_btn_game_finished">Закончить</string>
+    <string name="scr_game_txt_game_results">Результат: \n%s</string>
+
+    <string name="scr_about_txt_about">Привет. Эта игра написана для приятного и интересного времяпровождения в кругу близких людей. Исходный код доступен по кнопке внизу. Приятного вечера :)</string>
+    <string name="scr_about_btn_source_code">Исходный код</string>
+    <string name="scr_about_btn_about_me">Обо мне</string>
+</resources>

@@ -2,6 +2,9 @@
     <string name="app_name">SLoom</string>
     <string name="by_serjlaren">by SerjLaren</string>
 
+    <string name="scr_any_ok">OK</string>
+    <string name="scr_any_msg_press_back_again_to_exit">Press BACK again to exit</string>
+
     <string name="scr_any_txt_word_topic_all">All</string>
     <string name="scr_any_txt_word_topic_animal">Animal</string>
     <string name="scr_any_txt_word_topic_person">Person</string>
@@ -13,7 +16,7 @@
 
     <string name="scr_main_btn_play">Play</string>
     <string name="scr_main_btn_rules">Rules</string>
-    <string name="scr_main_btn_about">About us</string>
+    <string name="scr_main_btn_about">Info</string>
 
     <string name="scr_game_settings_btn_play">Play</string>
     <string name="scr_game_settings_txt_teams_count">Teams count:</string>
@@ -22,10 +25,18 @@
     <string name="scr_game_settings_txt_words_topics">Words topics:</string>
     <string name="scr_game_settings_msg_fill_words_topics">No words topics selected</string>
 
-    <string name="scr_game_txt_move_team_f">Team %s</string>
+    <string name="scr_game_txt_team_f">Team %s</string>
     <string name="scr_game_btn_guessed">Guessed</string>
+    <string name="scr_game_txt_next_team_f">Team move: Team %s</string>
+    <string name="scr_game_txt_next_phase_f">Round: %s</string>
+    <string name="scr_game_txt_phase_1_rules">Explain the word in other words (you can not use the same root words and the words in another language)</string>
+    <string name="scr_game_txt_phase_2_rules">Show the word (you can not use words and other sounds)</string>
+    <string name="scr_game_txt_phase_3_rules">Explain the word by another ONE word (you can not use movements)</string>
+    <string name="scr_game_btn_start">Start</string>
+    <string name="scr_game_btn_game_finished">Finish</string>
+    <string name="scr_game_txt_game_results">Results: \n%s</string>
 
-    <string name="scr_about_txt_about">Привет. Эта игра написана для приятного и интересного времяпровождения в кругу близких людей. И да, исходный код я не скрываю, ты можешь посмотреть его по кнопке внизу. Приятного вечера :)</string>
-    <string name="scr_about_btn_source_code">Исходный код</string>
-    <string name="scr_about_btn_about_me">О разработчике</string>
+    <string name="scr_about_txt_about">Hello. This game is written for a pleasant and interesting pastime in the circle of close people. The source code is available via the button below. Have a nice evening :)</string>
+    <string name="scr_about_btn_source_code">Source code</string>
+    <string name="scr_about_btn_about_me">About me</string>
 </resources>

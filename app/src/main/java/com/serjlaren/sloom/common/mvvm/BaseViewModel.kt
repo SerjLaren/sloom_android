@@ -1,17 +1,25 @@
 package com.serjlaren.sloom.common.mvvm
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.serjlaren.sloom.R
 import com.serjlaren.sloom.common.Screen
+import com.serjlaren.sloom.common.mvvm.models.AlertDialogModel
 import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
+@Suppress("MemberVisibilityCanBePrivate")
 abstract class BaseViewModel : ViewModel() {
 
     val navigateToScreenCommand = TCommand<Screen>()
+    val navigateBackCommand = Command()
     val showToastCommand = TCommand<String>()
+    val showToastFromResourcesCommand = TCommand<Int>()
+    val showAlertCommand = TCommand<AlertDialogModel>()
 
     abstract fun init()
     open fun start() {}
@@ -19,12 +27,47 @@ abstract class BaseViewModel : ViewModel() {
     open fun resume() {}
     open fun pause() {}
 
+    open var doubleBackToExit = false
+
+    private var doubleBackToExitPressed = false
+
+    fun backButtonPressed() {
+        if (doubleBackToExit) {
+            if (doubleBackToExitPressed) {
+                navigateBack()
+                return
+            }
+
+            doubleBackToExitPressed = true
+            showToastFromResources(R.string.scr_any_msg_press_back_again_to_exit)
+
+            viewModelScope.launch {
+                delay(2000)
+                doubleBackToExitPressed = false
+            }
+        } else {
+            navigateBack()
+        }
+    }
+
     protected fun navigateToScreen(screen: Screen) = viewModelScope.launch {
         navigateToScreenCommand.emitValueSuspend(screen)
     }
 
+    protected fun navigateBack() = viewModelScope.launch {
+        navigateBackCommand.emitCommandSuspend()
+    }
+
     protected fun showToast(message: String) = viewModelScope.launch {
         showToastCommand.emitValueSuspend(message)
+    }
+
+    protected fun showToastFromResources(@StringRes messageId: Int) = viewModelScope.launch {
+        showToastFromResourcesCommand.emitValueSuspend(messageId)
+    }
+
+    protected fun showAlertDialog(model: AlertDialogModel) = viewModelScope.launch {
+        showAlertCommand.emitValueSuspend(model)
     }
 
     protected fun Text(): ViewModelSharedFlow<String> = ViewModelSharedFlowImpl()

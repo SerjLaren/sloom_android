@@ -11,7 +11,7 @@ import com.serjlaren.sloom.R
 abstract class BaseBottomSheetDialogFragment<TViewBinding : ViewBinding, TViewModel : BaseViewModel>: BottomSheetDialogFragment() {
 
     protected abstract val viewModel: TViewModel
-    protected var viewBinding: ViewBinding? = null
+    protected var viewBinding: TViewBinding? = null
     protected abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> TViewBinding
 
     override fun getTheme() = R.style.AppBottomSheetDialogTheme

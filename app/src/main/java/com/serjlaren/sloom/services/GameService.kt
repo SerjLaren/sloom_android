@@ -3,6 +3,7 @@ package com.serjlaren.sloom.services
 import com.serjlaren.sloom.data.domain.game.Game
 import com.serjlaren.sloom.data.domain.game.GamePhase
 import com.serjlaren.sloom.data.domain.game.GameSettings
+import com.serjlaren.sloom.data.domain.game.GameState
 import com.serjlaren.sloom.data.domain.teams.Team
 import com.serjlaren.sloom.data.domain.words.Word
 import com.serjlaren.sloom.data.domain.words.WordLevel
@@ -21,24 +22,14 @@ class GameService @Inject constructor(
     private val timerService: TimerService,
 ) {
 
-    private val currentWordFlowInternal = MutableSharedFlow<Word>(replay = 1, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val currentWordFlow = currentWordFlowInternal.asSharedFlow()
-
-    private val currentTeamFlowInternal = MutableSharedFlow<Team>(replay = 1, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val currentTeamFlow = currentTeamFlowInternal.asSharedFlow()
-
-    private val newMoveFlowInternal = MutableSharedFlow<Team>(replay = 0, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.SUSPEND)
-    val newMoveFlow = newMoveFlowInternal.asSharedFlow()
-
-    private val newPhaseFlowInternal = MutableSharedFlow<GamePhase>(replay = 0, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.SUSPEND)
-    val newPhaseFlow = newPhaseFlowInternal.asSharedFlow()
-
-    private val endGameFlowInternal = MutableSharedFlow<List<Team>>(replay = 0, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.SUSPEND)
-    val endGameFlow = endGameFlowInternal.asSharedFlow()
+    private val currentGameStateFlowInternal = MutableSharedFlow<GameState>(replay = 1, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val currentGameStateFlow = currentGameStateFlowInternal.asSharedFlow()
 
     val currentTimeFlow = timerService.timerFlow
-        .onCompletion {
-            timeIsOut()
+        .onEach { time ->
+            if (time == 0) {
+                timeIsOut()
+            }
         }
 
     val minTeamsCount = GameSettings.minTeamsCount
@@ -54,31 +45,25 @@ class GameService @Inject constructor(
 
     private var currentGame = Game.defaultGame()
     private var currentWord = Word.defaultWord()
-    private var currentTeamNumber = 0
+    private var currentTeam = Team.defaultTeam()
 
     suspend fun initGame(teamsCount: Int, wordsCount: Int, secondsPerMove: Int, wordTopicsIndexes: List<Int>) = withContext(ioDispatcher) {
         GameSettings(
             teamsCount = teamsCount,
             wordsCount = wordsCount,
             secondsPerMove = secondsPerMove,
-            wordsTopics = wordTopicsIndexes.map { WordTopic.fromIndex(it) }
+            wordsTopics = wordTopicsIndexes.map { WordTopic.fromIndex(it) },
         ).let { gameSettings ->
             currentGame = currentGame.copy(
                 allWords = TestWords.getTestWords(),
                 teams = createTeams(gameSettings),
                 guessedWords = listOf(),
                 phase = GamePhase.First,
-                settings = gameSettings
+                settings = gameSettings,
             )
         }
-    }
 
-    private fun createTeams(settings: GameSettings): List<Team> {
-        val teams = mutableListOf<Team>()
-        for (i in 0 until settings.teamsCount) {
-            teams.add(Team(i, 0))
-        }
-        return teams
+        updateGameState(GameState.PhaseStarting(GamePhase.First))
     }
 
     fun startMove() {
@@ -87,13 +72,13 @@ class GameService @Inject constructor(
     }
 
     fun startPhase() {
-        installNewWord()
-        timerService.startTimer(currentGame.settings.secondsPerMove)
+        updateGameState(GameState.TeamMoveStarting(currentGame.teams[currentTeam.index]))
     }
 
     fun wordGuessed() {
         currentGame = currentGame.copy(
-            teams = currentGame.teams.map { team -> if (team.number == currentTeamNumber) team.copy(score = team.score + 1) else team }
+            teams = currentGame.teams.map { team -> if (team.index == currentTeam.index) team.copy(score = team.score + 1) else team },
+            guessedWords = currentGame.guessedWords.toMutableList().apply { add(currentWord) },
         )
         if (currentGame.allWords.size == currentGame.guessedWords.size) {
             timerService.stopTimer()
@@ -103,19 +88,20 @@ class GameService @Inject constructor(
                         guessedWords = listOf(),
                         phase = GamePhase.Second,
                     )
+                    updateGameState(GameState.PhaseStarting(GamePhase.Second))
                 }
                 GamePhase.Second -> {
                     currentGame = currentGame.copy(
                         guessedWords = listOf(),
                         phase = GamePhase.Third,
                     )
+                    updateGameState(GameState.PhaseStarting(GamePhase.Third))
                 }
                 GamePhase.Third -> {
-                    //TODO
+                    updateGameState(GameState.GameFinished(currentGame.teams))
                 }
             }
         } else {
-            currentGame = currentGame.copy(guessedWords = currentGame.guessedWords.toMutableList().apply { add(currentWord) })
             installNewWord()
         }
     }
@@ -124,28 +110,40 @@ class GameService @Inject constructor(
         currentWord = currentGame.let { game ->
             currentGameAllWords().first { game.guessedWords.contains(it).not() }
         }
-        currentWordFlowInternal.tryEmit(currentWord)
+        updateGameState(GameState.WordGuessing(currentTeam, currentWord))
+    }
+
+    private fun updateGameState(state: GameState) {
+        currentGameStateFlowInternal.tryEmit(state)
     }
 
     private fun currentGameAllWords() = currentGame.allWords.shuffled()
 
     private fun timeIsOut() {
-        currentTeamNumber = if (currentTeamNumber == currentGame.teams.size - 1) 0 else currentTeamNumber + 1
-        currentTeamFlowInternal.tryEmit(currentGame.teams.first { it.number == currentTeamNumber })
+        currentTeam = if (currentTeam.index == currentGame.teams.size - 1) currentGame.teams[0] else currentGame.teams[currentTeam.index + 1]
+        updateGameState(GameState.TeamMoveStarting(currentTeam))
+    }
+
+    private fun createTeams(settings: GameSettings): List<Team> {
+        val teams = mutableListOf<Team>()
+        for (i in 0 until settings.teamsCount) {
+            teams.add(Team(i, i + 1,0))
+        }
+        return teams
     }
 }
 
 object TestWords{
     fun getTestWords() = listOf(
-        Word("Cat", WordLevel.All, WordTopic.All),
-        Word("Dog", WordLevel.All, WordTopic.All),
-        Word("House", WordLevel.All, WordTopic.All),
-        Word("Water", WordLevel.All, WordTopic.All),
-        Word("Sun", WordLevel.All, WordTopic.All),
-        Word("Glass", WordLevel.All, WordTopic.All),
-        Word("Spoon", WordLevel.All, WordTopic.All),
-        Word("Football", WordLevel.All, WordTopic.All),
-        Word("Round", WordLevel.All, WordTopic.All),
-        Word("Game", WordLevel.All, WordTopic.All),
+        Word("Кот", WordLevel.All, WordTopic.All),
+        Word("Собака", WordLevel.All, WordTopic.All),
+        Word("Дом", WordLevel.All, WordTopic.All),
+        Word("Вода", WordLevel.All, WordTopic.All),
+        Word("Солнце", WordLevel.All, WordTopic.All),
+        Word("Стакан", WordLevel.All, WordTopic.All),
+        Word("Ложка", WordLevel.All, WordTopic.All),
+        Word("Футбол", WordLevel.All, WordTopic.All),
+        Word("Игра", WordLevel.All, WordTopic.All),
+        Word("Стул", WordLevel.All, WordTopic.All),
     )
 }

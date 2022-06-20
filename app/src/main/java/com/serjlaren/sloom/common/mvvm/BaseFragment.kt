@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.serjlaren.sloom.R
 import com.serjlaren.sloom.common.*
+import com.serjlaren.sloom.common.extensions.showAlertDialog
 import kotlinx.coroutines.flow.onEach
 
 abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
@@ -21,7 +23,13 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
     protected abstract val viewModel: TViewModel
     protected abstract val viewBinding: ViewBinding
 
-    open fun initViews() {}
+    open fun initViews() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.backButtonPressed()
+            }
+        })
+    }
 
     open fun bindViewModel() {
         with(viewModel) {
@@ -45,8 +53,28 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
                     is Screen.ExternalScreen.AboutMe -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://about.me/serjlaren")))
                 }
             }
+            bindCommand(navigateBackCommand) {
+                if (findNavController().popBackStack().not()) {
+                    requireActivity().finish()
+                }
+            }
             bindTCommand(showToastCommand) { message ->
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
+
+            bindTCommand(showToastFromResourcesCommand) { messageId ->
+                Toast.makeText(requireContext(), requireContext().getString(messageId), Toast.LENGTH_SHORT).show()
+            }
+            bindTCommand(showAlertCommand) { model ->
+                requireContext().showAlertDialog(
+                    title = model.title,
+                    message = model.message,
+                    positiveActionTitleId = model.positiveActionTitleId,
+                    negativeActionTitleId = model.negativeActionTitleId,
+                    positiveAction = model.positiveAction,
+                    negativeAction = model.negativeAction,
+                    cancelAction = model.cancelAction,
+                )
             }
         }
     }
