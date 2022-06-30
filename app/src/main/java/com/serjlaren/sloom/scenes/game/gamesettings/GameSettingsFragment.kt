@@ -1,9 +1,14 @@
 package com.serjlaren.sloom.scenes.game.gamesettings
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.view.View
+import androidx.core.animation.doOnStart
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.serjlaren.sloom.R
 import com.serjlaren.sloom.common.mvvm.BaseFragment
+import com.serjlaren.sloom.common.scaleObjectAnimators
 import com.serjlaren.sloom.databinding.FragmentGameSettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,17 +18,21 @@ class GameSettingsFragment : BaseFragment<GameSettingsViewModel>(R.layout.fragme
     override val viewModel: GameSettingsViewModel by viewModels()
     override val viewBinding: FragmentGameSettingsBinding by viewBinding()
 
+    private var scaleUpScreenAnim = listOf(ObjectAnimator())
+
     override fun initViews() {
         super.initViews()
         with(viewBinding) {
             playClickableLayout.setOnClickListener {
                 viewModel.playClicked(
-                    teamsCountLayout.getRangeValue(),
-                    wordsCountLayout.getRangeValue(),
-                    timePerMoveLayout.getRangeValue(),
-                    wordsTopicsLayout.getCheckedIndexes(),
+                    teamsCount = teamsCountLayout.getRangeValue(),
+                    wordsCount = wordsCountLayout.getRangeValue(),
+                    secondsPerMove = timePerMoveLayout.getRangeValue(),
+                    wordTopicsIndexes = wordsTopicsLayout.getCheckedIndexes(),
                 )
             }
+
+            scaleUpScreenAnim = mainLayout.scaleObjectAnimators(0f, 1f, 500)
         }
     }
 
@@ -51,6 +60,14 @@ class GameSettingsFragment : BaseFragment<GameSettingsViewModel>(R.layout.fragme
                     teamsCountLayout.applyRange()
                     wordsCountLayout.applyRange()
                     timePerMoveLayout.applyRange()
+                }
+                bindCommand(startScreenAnimationCommand) {
+                    AnimatorSet().apply {
+                        playTogether(scaleUpScreenAnim)
+                        doOnStart {
+                            mainLayout.visibility = View.VISIBLE
+                        }
+                    }.start()
                 }
             }
         }

@@ -25,6 +25,7 @@ class GameViewModel @Inject constructor(
     val currentWord = Text()
     val currentTime = Text()
     val nextPhase = Text()
+    val phaseRules = Text()
     val nextTeamText = Text()
     val gameResultsText = Text()
     val guessedButtonText = Text()
@@ -64,6 +65,13 @@ class GameViewModel @Inject constructor(
                 currentWord.emitValueSuspend(gameState.word.word)
             }
             is GameState.PhaseStarting -> {
+                phaseRules.emitValueSuspend(
+                    when (gameState.phase) {
+                        GamePhase.First -> resourcesService.getString(R.string.scr_game_txt_phase_1_rules)
+                        GamePhase.Second -> resourcesService.getString(R.string.scr_game_txt_phase_2_rules)
+                        GamePhase.Third -> resourcesService.getString(R.string.scr_game_txt_phase_3_rules)
+                    }
+                )
                 nextPhase.emitValueSuspend(
                     resourcesService.getString(
                         R.string.scr_game_txt_next_phase_f, when (gameState.phase) {

@@ -39,6 +39,7 @@ class GameFragment : BaseFragment<GameViewModel>(R.layout.fragment_game) {
                 bindText(currentTime, moveSecondsTextView)
                 bindText(currentWord, currentWordTextView)
                 bindText(nextPhase, phaseStartingTextView)
+                bindText(phaseRules, phaseRulesTextView)
                 bindText(nextTeamText, teamMoveStartingTextView)
                 bindText(gameResultsText, gameFinishedTextView)
                 bindText(guessedButtonText, wordGuessedTextView)
