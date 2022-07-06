@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.serjlaren.sloom.R
 import com.serjlaren.sloom.common.*
-import com.serjlaren.sloom.common.extensions.showAlertDialog
+import com.serjlaren.sloom.common.extensions.*
 import kotlinx.coroutines.flow.onEach
 
 abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
@@ -36,21 +36,25 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
             bindTCommand(navigateToScreenCommand) { screen ->
                 when (screen) {
                     //App Screens
-                    is Screen.AppScreen.Splash -> findNavController().navigate(R.id.splashFragment)
+                    is Screen.AppScreen.Splash -> findNavController().navigate(R.id.splashFragment, null, navOptions())
                     is Screen.AppScreen.Main -> findNavController().navigate(
                         R.id.mainFragment, null, NavOptions.Builder()
                             .setPopUpTo(findNavController().backQueue.first().destination.id, true)
                             .setLaunchSingleTop(true)
+                            .setEnterAnim(R.anim.fragment_enter)
+                            .setExitAnim(R.anim.fragment_exit)
+                            .setPopEnterAnim(R.anim.fragment_exit)
+                            .setPopExitAnim(R.anim.fragment_enter)
                             .build()
                     )
-                    is Screen.AppScreen.GameSettings -> findNavController().navigate(R.id.gameSettingsFragment)
-                    is Screen.AppScreen.Game -> findNavController().navigate(R.id.gameFragment)
-                    is Screen.AppScreen.About -> findNavController().navigate(R.id.aboutFragment)
+                    is Screen.AppScreen.GameSettings -> findNavController().navigate(R.id.gameSettingsFragment, null, navOptions())
+                    is Screen.AppScreen.Game -> findNavController().navigate(R.id.gameFragment, null, navOptions())
+                    is Screen.AppScreen.About -> findNavController().navigate(R.id.aboutFragment, null, navOptions())
                     is Screen.AppScreen.Rules -> {  } //TODO
 
                     //External screens
-                    is Screen.ExternalScreen.SourceCode -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SerjLaren/sloom_android")))
-                    is Screen.ExternalScreen.AboutMe -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://about.me/serjlaren")))
+                    is Screen.ExternalScreen.SourceCode -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(screen.url)))
+                    is Screen.ExternalScreen.AboutMe -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(screen.url)))
                 }
             }
             bindCommand(navigateBackCommand) {
@@ -61,7 +65,6 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
             bindTCommand(showToastCommand) { message ->
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
-
             bindTCommand(showToastFromResourcesCommand) { messageId ->
                 Toast.makeText(requireContext(), requireContext().getString(messageId), Toast.LENGTH_SHORT).show()
             }
@@ -78,6 +81,14 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
             }
         }
     }
+
+    private fun navOptions(): NavOptions =
+        NavOptions.Builder()
+            .setEnterAnim(R.anim.fragment_enter)
+            .setExitAnim(R.anim.fragment_exit)
+            .setPopEnterAnim(R.anim.fragment_enter)
+            .setPopExitAnim(R.anim.fragment_exit)
+            .build()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

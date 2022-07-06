@@ -10,7 +10,7 @@ import com.serjlaren.sloom.R
 import com.serjlaren.sloom.common.mvvm.BaseFragment
 import com.serjlaren.sloom.databinding.FragmentSplashBinding
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.serjlaren.sloom.common.scaleObjectAnimators
+import com.serjlaren.sloom.common.extensions.scaleObjectAnimators
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -27,10 +27,10 @@ class AboutViewModel @Inject constructor(
     }
 
     fun sourceCodeButtonClicked() {
-        navigateToScreen(Screen.ExternalScreen.SourceCode)
+        navigateToScreen(Screen.ExternalScreen.SourceCode())
     }
 
     fun aboutMeButtonClicked() {
-        navigateToScreen(Screen.ExternalScreen.AboutMe)
+        navigateToScreen(Screen.ExternalScreen.AboutMe())
     }
 }

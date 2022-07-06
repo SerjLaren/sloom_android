@@ -12,7 +12,7 @@ sealed class Screen {
     }
 
     sealed class ExternalScreen : Screen() {
-        object SourceCode: ExternalScreen()
-        object AboutMe: ExternalScreen()
+        class SourceCode(val url: String = "https://github.com/SerjLaren/sloom_android"): ExternalScreen()
+        class AboutMe(val url: String = "https://about.me/serjlaren"): ExternalScreen()
     }
 }

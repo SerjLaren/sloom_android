@@ -1,4 +1,4 @@
-package com.serjlaren.sloom.common
+package com.serjlaren.sloom.common.extensions
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleCoroutineScope

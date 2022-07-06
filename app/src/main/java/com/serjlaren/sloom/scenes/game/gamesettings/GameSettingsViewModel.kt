@@ -33,7 +33,6 @@ class GameSettingsViewModel @Inject constructor(
     val wordsTopics = Data<List<String>>()
     val selectedWordTopic = Data<Int>()
     val applyRangesCommand = Command()
-    val startScreenAnimationCommand = Command()
 
     private val wordTopicsNames =
         WordTopic.values().map { enumValue ->
@@ -73,7 +72,6 @@ class GameSettingsViewModel @Inject constructor(
             selectedWordsCount.emitValueSuspend(gameService.defaultWordsCount)
             selectedSecondsPerMove.emitValueSuspend(gameService.defaultSecondsPerMove)
             selectedWordTopic.emitValueSuspend(gameService.defaultWordTopic.ordinal)
-            startScreenAnimationCommand.emitCommandSuspend()
         }
     }
 

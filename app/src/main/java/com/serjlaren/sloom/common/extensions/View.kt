@@ -1,4 +1,4 @@
-package com.serjlaren.sloom.common
+package com.serjlaren.sloom.common.extensions
 
 import android.animation.ObjectAnimator
 import android.view.View
