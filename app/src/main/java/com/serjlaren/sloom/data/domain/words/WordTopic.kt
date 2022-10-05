@@ -1,5 +1,6 @@
 package com.serjlaren.sloom.data.domain.words
 
+@Suppress("MagicNumber")
 enum class WordTopic(val id: Int) {
     All(0),
     Animal(1),

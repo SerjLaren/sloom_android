@@ -1,3 +1,4 @@
+@file:Suppress("WildcardImport")
 package com.serjlaren.sloom.services
 
 import com.serjlaren.sloom.di.CoroutineScopeIO
@@ -8,7 +9,6 @@ import javax.inject.Inject
 class TimerService @Inject constructor(
     @CoroutineScopeIO private val ioScope: CoroutineScope,
 ) {
-
     private val timerFlowInternal = MutableSharedFlow<Int>()
     val timerFlow = timerFlowInternal.asSharedFlow()
 
@@ -19,7 +19,7 @@ class TimerService @Inject constructor(
         timerJob = ioScope.launch {
             (seconds - 1 downTo 0).asFlow()
                 .cancellable()
-                .onEach { delay(1000) }
+                .onEach { delay(timerMillis) }
                 .onStart { timerFlowInternal.emit(seconds) }
                 .conflate()
                 .map { timerFlowInternal.emit(it) }
@@ -30,5 +30,9 @@ class TimerService @Inject constructor(
     fun stopTimer() {
         timerJob?.cancel()
         timerJob = null
+    }
+
+    companion object {
+        const val timerMillis = 1000L
     }
 }

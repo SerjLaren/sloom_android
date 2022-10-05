@@ -53,7 +53,9 @@ class GameSettingsViewModel @Inject constructor(
             playButtonText.emitValueSuspend(resourcesService.getString(R.string.scr_game_settings_btn_play))
             teamsCountTitleText.emitValueSuspend(resourcesService.getString(R.string.scr_game_settings_txt_teams_count))
             wordsCountTitleText.emitValueSuspend(resourcesService.getString(R.string.scr_game_settings_txt_words_count))
-            secondsPerMoveTitleText.emitValueSuspend(resourcesService.getString(R.string.scr_game_settings_txt_seconds_per_move))
+            secondsPerMoveTitleText.emitValueSuspend(
+                resourcesService.getString(R.string.scr_game_settings_txt_seconds_per_move)
+            )
             minTeamsCount.emitValueSuspend(gameService.minTeamsCount)
             maxTeamsCount.emitValueSuspend(gameService.maxTeamsCount)
             minWordsCount.emitValueSuspend(gameService.minWordsCount)

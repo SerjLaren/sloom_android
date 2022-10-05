@@ -1,3 +1,4 @@
+@file:Suppress("WildcardImport")
 package com.serjlaren.sloom.scenes.game
 
 import androidx.lifecycle.viewModelScope

@@ -8,7 +8,8 @@ import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.serjlaren.sloom.R
 
-abstract class BaseBottomSheetDialogFragment<TViewBinding : ViewBinding, TViewModel : BaseViewModel>: BottomSheetDialogFragment() {
+abstract class BaseBottomSheetDialogFragment<TViewBinding : ViewBinding, TViewModel : BaseViewModel> :
+    BottomSheetDialogFragment() {
 
     protected abstract val viewModel: TViewModel
     protected var viewBinding: TViewBinding? = null

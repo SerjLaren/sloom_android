@@ -1,5 +1,6 @@
 package com.serjlaren.sloom.data.domain.words
 
+@Suppress("MagicNumber")
 enum class WordLevel(private val id: Int) {
     All(0),
     Easy(1),

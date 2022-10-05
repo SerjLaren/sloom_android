@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate", "TooManyFunctions", "FunctionNaming")
 abstract class BaseViewModel : ViewModel() {
 
     val navigateToScreenCommand = TCommand<Screen>()
@@ -42,7 +42,7 @@ abstract class BaseViewModel : ViewModel() {
             showToastFromResources(R.string.scr_any_msg_press_back_again_to_exit)
 
             viewModelScope.launch {
-                delay(2000)
+                delay(doubleBackPressedDelay)
                 doubleBackToExitPressed = false
             }
         } else {
@@ -91,6 +91,10 @@ abstract class BaseViewModel : ViewModel() {
 
     protected suspend fun ViewModelSharedFlow<Unit>.emitCommandSuspend() = when (this) {
         is ViewModelSharedFlowImpl -> wrapped.emit(Unit)
+    }
+
+    companion object {
+        const val doubleBackPressedDelay = 2000L
     }
 }
 

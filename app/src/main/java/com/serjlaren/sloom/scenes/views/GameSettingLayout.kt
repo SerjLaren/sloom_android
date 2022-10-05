@@ -31,9 +31,9 @@ class GameSettingLayout : ConstraintLayout {
                 setTitleValue(getRangeValue().toString())
             }
 
-            override fun onStartTrackingTouch(p0: SeekBar?) {}
+            override fun onStartTrackingTouch(p0: SeekBar?) = Unit
 
-            override fun onStopTrackingTouch(p0: SeekBar?) {}
+            override fun onStopTrackingTouch(p0: SeekBar?) = Unit
         })
     }
 

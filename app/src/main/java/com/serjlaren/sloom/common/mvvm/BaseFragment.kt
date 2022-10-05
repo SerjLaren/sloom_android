@@ -1,3 +1,4 @@
+@file:Suppress("WildcardImport")
 package com.serjlaren.sloom.common.mvvm
 
 import android.content.Intent
@@ -18,6 +19,7 @@ import com.serjlaren.sloom.common.*
 import com.serjlaren.sloom.common.extensions.*
 import kotlinx.coroutines.flow.onEach
 
+@Suppress("TooManyFunctions")
 abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
 
     protected abstract val viewModel: TViewModel
@@ -31,21 +33,52 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
         })
     }
 
+    @Suppress("LongMethod")
     open fun bindViewModel() {
         with(viewModel) {
             bindTCommand(navigateToScreenCommand) { screen ->
                 when (screen) {
                     //App Screens
-                    is Screen.AppScreen.Splash -> findNavController().navigate(R.id.splashFragment, null, navOptions())
-                    is Screen.AppScreen.Main -> findNavController().navigate(R.id.mainFragment, null, navOptionsClearingStack())
-                    is Screen.AppScreen.GameSettings -> findNavController().navigate(R.id.gameSettingsFragment, null, navOptions())
-                    is Screen.AppScreen.Game -> findNavController().navigate(R.id.gameFragment, null, navOptions())
-                    is Screen.AppScreen.About -> findNavController().navigate(R.id.aboutFragment, null, navOptions())
-                    is Screen.AppScreen.Rules -> {  } //TODO
+                    is Screen.AppScreen.Splash -> findNavController().navigate(
+                        R.id.splashFragment,
+                        null,
+                        navOptions()
+                    )
+                    is Screen.AppScreen.Main -> findNavController().navigate(
+                        R.id.mainFragment,
+                        null,
+                        navOptionsClearingStack()
+                    )
+                    is Screen.AppScreen.GameSettings -> findNavController().navigate(
+                        R.id.gameSettingsFragment,
+                        null,
+                        navOptions()
+                    )
+                    is Screen.AppScreen.Game -> findNavController().navigate(
+                        R.id.gameFragment,
+                        null,
+                        navOptions()
+                    )
+                    is Screen.AppScreen.About -> findNavController().navigate(
+                        R.id.aboutFragment,
+                        null,
+                        navOptions()
+                    )
+                    is Screen.AppScreen.Rules -> {} //TODO
 
                     //External screens
-                    is Screen.ExternalScreen.SourceCode -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(screen.url)))
-                    is Screen.ExternalScreen.AboutMe -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(screen.url)))
+                    is Screen.ExternalScreen.SourceCode -> startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(screen.url)
+                        )
+                    )
+                    is Screen.ExternalScreen.AboutMe -> startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(screen.url)
+                        )
+                    )
                 }
             }
             bindCommand(navigateBackCommand) {
@@ -122,9 +155,11 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
         textView.text = text
     }.launchWhenStarted(viewLifecycleOwner, lifecycleScope)
 
-    protected fun bindVisible(sharedFlow: VisibleFlow, view: View, asInvisible: Boolean = false) = sharedFlow.onEach { visible ->
-        view.visibility = if (visible) View.VISIBLE else if (asInvisible) View.INVISIBLE else View.GONE
-    }.launchWhenStarted(viewLifecycleOwner, lifecycleScope)
+    protected fun bindVisible(sharedFlow: VisibleFlow, view: View, asInvisible: Boolean = false) =
+        sharedFlow.onEach { visible ->
+            view.visibility =
+                if (visible) View.VISIBLE else if (asInvisible) View.INVISIBLE else View.GONE
+        }.launchWhenStarted(viewLifecycleOwner, lifecycleScope)
 
     protected fun bindEnabled(sharedFlow: EnabledFlow, view: View) = sharedFlow.onEach { enabled ->
         view.isEnabled = enabled

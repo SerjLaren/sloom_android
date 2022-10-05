@@ -1,3 +1,4 @@
+@file:Suppress("WildcardImport")
 package com.serjlaren.sloom.services
 
 import com.serjlaren.sloom.data.domain.game.*
@@ -22,7 +23,11 @@ class GameService @Inject constructor(
     private val audioService: AudioService,
 ) {
 
-    private val currentGameStateFlowInternal = MutableSharedFlow<GameState>(replay = 1, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    private val currentGameStateFlowInternal = MutableSharedFlow<GameState>(
+        replay = 1,
+        extraBufferCapacity = 0,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
     val currentGameStateFlow = currentGameStateFlowInternal.asSharedFlow()
 
     val currentTimeFlow = timerService.timerFlow
@@ -48,7 +53,12 @@ class GameService @Inject constructor(
     private var currentTeam = team()
     private var moveInitialTeam = team()
 
-    suspend fun initGame(teamsCount: Int, wordsCount: Int, secondsPerMove: Int, wordTopicsIndexes: List<Int>) = withContext(ioDispatcher) {
+    suspend fun initGame(
+        teamsCount: Int,
+        wordsCount: Int,
+        secondsPerMove: Int,
+        wordTopicsIndexes: List<Int>
+    ) = withContext(ioDispatcher) {
         timerService.stopTimer()
         gameSettings {
             this.teamsCount = teamsCount
@@ -79,7 +89,12 @@ class GameService @Inject constructor(
     suspend fun wordGuessed() = withContext(ioDispatcher) {
         audioService.playGuessedSound()
         currentGame = currentGame.copy(
-            teams = currentGame.teams.map { team -> if (team.index == currentTeam.index) team.copy(score = team.score + 1) else team },
+            teams = currentGame.teams.map { team ->
+                if (team.index == currentTeam.index)
+                    team.copy(score = team.score + 1)
+                else
+                    team
+            },
             guessedWords = currentGame.guessedWords.toMutableList().apply { add(currentWord) },
         )
         if (currentGame.allWords.size == currentGame.guessedWords.size) {

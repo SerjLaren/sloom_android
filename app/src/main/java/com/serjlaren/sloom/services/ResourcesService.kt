@@ -13,5 +13,6 @@ class ResourcesService @Inject constructor(
 
     fun getString(@StringRes id: Int) = context.getString(id)
 
+    @Suppress("SpreadOperator")
     fun getString(@StringRes id: Int, vararg args: Any) = context.getString(id, *args.asList().toTypedArray())
 }

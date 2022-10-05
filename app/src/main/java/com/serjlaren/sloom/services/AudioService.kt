@@ -19,14 +19,12 @@ class AudioService @Inject constructor(
 
     suspend fun playGuessedSound() {
         playSoundMutex.withLock {
-            try {
-                if (mediaPlayer.isPlaying) {
-                    mediaPlayer.stop()
-                    mediaPlayer.release()
-                    mediaPlayer = MediaPlayer.create(context, R.raw.guessed_sound)
-                }
-                mediaPlayer.start()
-            } catch (e: Exception) {}
+            if (mediaPlayer.isPlaying) {
+                mediaPlayer.stop()
+                mediaPlayer.release()
+                mediaPlayer = MediaPlayer.create(context, R.raw.guessed_sound)
+            }
+            mediaPlayer.start()
         }
     }
 }

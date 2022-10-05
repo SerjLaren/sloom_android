@@ -10,25 +10,17 @@ import androidx.core.content.ContextCompat
 import com.serjlaren.sloom.R
 import com.serjlaren.sloom.databinding.LayoutWordsTopicsBinding
 
+@Suppress("MagicNumber")
 class WordsTopicsLayout : ConstraintLayout {
-    constructor(context: Context) : super(context) {
-        init()
-    }
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
-    }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) :
-            super(context, attrs, defStyleAttr) {
-        init()
-    }
+            super(context, attrs, defStyleAttr)
 
     private var checkBoxes = mutableListOf<CheckBox>()
     private val viewBinding = LayoutWordsTopicsBinding.inflate(LayoutInflater.from(context), this, true)
-
-    private fun init() {
-    }
 
     private fun onCheckBoxChecked(index: Int, checked: Boolean) {
         if (!checked)
@@ -75,5 +67,7 @@ class WordsTopicsLayout : ConstraintLayout {
         }
     }
 
-    fun getCheckedIndexes() = checkBoxes.mapIndexed { index, checkBox -> if (checkBox.isChecked) index else null }.filterNotNull()
+    fun getCheckedIndexes() =
+        checkBoxes.mapIndexed { index, checkBox -> if (checkBox.isChecked) index else null }
+            .filterNotNull()
 }
