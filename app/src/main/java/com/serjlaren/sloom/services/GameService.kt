@@ -58,7 +58,7 @@ class GameService @Inject constructor(
         }.let { gameSettings ->
             currentGame = game {
                 allWords = TestWords.getTestWords()
-                teams = createTeams(gameSettings.teamsCount)
+                teams = initTeams(gameSettings.teamsCount)
                 phase = GamePhase.First
                 settings = gameSettings
             }
@@ -67,16 +67,16 @@ class GameService @Inject constructor(
         updateGameState(GameState.PhaseStarting(GamePhase.First))
     }
 
-    fun startMove() {
+    suspend fun startMove() = withContext(ioDispatcher) {
         installNewWord()
         timerService.startTimer(currentGame.settings.secondsPerMove)
     }
 
-    fun startPhase() {
+    suspend fun startPhase() = withContext(ioDispatcher) {
         updateGameState(GameState.TeamMoveStarting(currentGame.teams[currentTeam.index]))
     }
 
-    fun wordGuessed() {
+    suspend fun wordGuessed() = withContext(ioDispatcher) {
         audioService.playGuessedSound()
         currentGame = currentGame.copy(
             teams = currentGame.teams.map { team -> if (team.index == currentTeam.index) team.copy(score = team.score + 1) else team },
@@ -112,30 +112,28 @@ class GameService @Inject constructor(
         }
     }
 
-    private fun installNewWord() {
-        currentWord = currentGame.let { game ->
-            game.allWords.shuffled().first { game.guessedWords.contains(it).not() }
-        }
+    private suspend fun installNewWord() {
+        currentWord = currentGame.allWords.shuffled().first { currentGame.guessedWords.contains(it).not() }
         updateGameState(GameState.WordGuessing(currentTeam, currentWord))
     }
 
-    private fun updateGameState(state: GameState) {
-        currentGameStateFlowInternal.tryEmit(state)
+    private suspend fun updateGameState(state: GameState) {
+        currentGameStateFlowInternal.emit(state)
     }
 
-    private fun timeIsOut() {
+    private suspend fun timeIsOut() {
         timerService.stopTimer()
         currentTeam = currentTeam.nextTeam()
         updateGameState(GameState.TeamMoveStarting(currentTeam))
     }
 
-    private fun Team.nextTeam() =
+    private fun Team.nextTeam(): Team =
         if (index == currentGame.teams.size - 1)
             currentGame.teams[0]
         else
             currentGame.teams[index + 1]
 
-    private fun createTeams(teamsCount: Int): List<Team> {
+    private fun initTeams(teamsCount: Int): List<Team> {
         val teams = mutableListOf<Team>()
         repeat(teamsCount) { i ->
             teams.add(team {
@@ -144,7 +142,8 @@ class GameService @Inject constructor(
                 score = 0
             })
         }
-        moveInitialTeam = teams[0]
+        currentTeam = teams.first()
+        moveInitialTeam = teams.first()
         return teams
     }
 }

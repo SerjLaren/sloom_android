@@ -13,7 +13,3 @@ fun View.scaleObjectAnimators(from: Float, to: Float, animDuration: Long, animSt
         startDelay = animStartDelay
     },
 )
-
-fun View.alphaObjectAnimator(from: Float, to: Float, animDuration: Long) = listOf(
-    ObjectAnimator.ofFloat(this, View.ALPHA, from, to).apply { duration = animDuration }
-)

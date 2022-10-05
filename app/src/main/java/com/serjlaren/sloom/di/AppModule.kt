@@ -24,6 +24,9 @@ object AppModule {
     @Provides
     fun provideDispatcherMain() = Dispatchers.Main
 
+    /**
+     * Don't cancel this scope!!! Only its child jobs.
+     */
     @CoroutineScopeIO
     @Singleton
     @Provides

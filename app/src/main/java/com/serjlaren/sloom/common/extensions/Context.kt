@@ -3,6 +3,7 @@ package com.serjlaren.sloom.common.extensions
 import android.content.Context
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
+@Suppress("LongParameterList")
 fun Context.showAlertDialog(
     title: String?,
     message: String?,
@@ -16,16 +17,14 @@ fun Context.showAlertDialog(
 
     title?.let { builder.setTitle(title) }
     message?.let { builder.setMessage(message) }
-
-    if (positiveActionTitleId != null) {
-        builder.setPositiveButton(positiveActionTitleId) { dialog, _ ->
+    positiveActionTitleId?.let {
+        builder.setPositiveButton(it) { dialog, _ ->
             dialog.dismiss()
             positiveAction?.invoke()
         }
     }
-
-    if (negativeActionTitleId != null) {
-        builder.setNegativeButton(negativeActionTitleId) { dialog, _ ->
+    negativeActionTitleId?.let {
+        builder.setNegativeButton(it) { dialog, _ ->
             dialog.dismiss()
             negativeAction?.invoke()
         }

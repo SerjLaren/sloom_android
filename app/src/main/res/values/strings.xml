@@ -27,8 +27,8 @@
 
     <string name="scr_game_txt_team_f">Team %s</string>
     <string name="scr_game_btn_guessed">Guessed</string>
-    <string name="scr_game_txt_next_team_f">Team move: Team %s</string>
-    <string name="scr_game_txt_next_phase_f">Round: %s</string>
+    <string name="scr_game_txt_next_team_f">Team move: \nTeam %s</string>
+    <string name="scr_game_txt_next_phase_f">Round: \n%s</string>
     <string name="scr_game_txt_phase_1_rules">Explain the word in other words (you can not use the same root words and the words in another language)</string>
     <string name="scr_game_txt_phase_2_rules">Show the word (you can not use words and other sounds)</string>
     <string name="scr_game_txt_phase_3_rules">Explain the word by another ONE word (you can not use movements)</string>

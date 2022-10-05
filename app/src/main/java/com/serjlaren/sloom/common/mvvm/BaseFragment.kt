@@ -37,16 +37,7 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
                 when (screen) {
                     //App Screens
                     is Screen.AppScreen.Splash -> findNavController().navigate(R.id.splashFragment, null, navOptions())
-                    is Screen.AppScreen.Main -> findNavController().navigate(
-                        R.id.mainFragment, null, NavOptions.Builder()
-                            .setPopUpTo(findNavController().backQueue.first().destination.id, true)
-                            .setLaunchSingleTop(true)
-                            .setEnterAnim(R.anim.fragment_enter)
-                            .setExitAnim(R.anim.fragment_exit)
-                            .setPopEnterAnim(R.anim.fragment_exit)
-                            .setPopExitAnim(R.anim.fragment_enter)
-                            .build()
-                    )
+                    is Screen.AppScreen.Main -> findNavController().navigate(R.id.mainFragment, null, navOptionsClearingStack())
                     is Screen.AppScreen.GameSettings -> findNavController().navigate(R.id.gameSettingsFragment, null, navOptions())
                     is Screen.AppScreen.Game -> findNavController().navigate(R.id.gameFragment, null, navOptions())
                     is Screen.AppScreen.About -> findNavController().navigate(R.id.aboutFragment, null, navOptions())
@@ -81,6 +72,16 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
             }
         }
     }
+
+    private fun navOptionsClearingStack(): NavOptions =
+        NavOptions.Builder()
+            .setPopUpTo(findNavController().backQueue.first().destination.id, true)
+            .setLaunchSingleTop(true)
+            .setEnterAnim(R.anim.fragment_enter)
+            .setExitAnim(R.anim.fragment_exit)
+            .setPopEnterAnim(R.anim.fragment_exit)
+            .setPopExitAnim(R.anim.fragment_enter)
+            .build()
 
     private fun navOptions(): NavOptions =
         NavOptions.Builder()

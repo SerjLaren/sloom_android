@@ -26,7 +26,6 @@ class AboutFragment : BaseFragment<AboutViewModel>(R.layout.fragment_about) {
 
     override fun bindViewModel() {
         super.bindViewModel()
-
         with(viewBinding) {
             with(viewModel) {
                 bindText(aboutText, aboutTextView)

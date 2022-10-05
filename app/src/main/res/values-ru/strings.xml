@@ -27,8 +27,8 @@
 
     <string name="scr_game_txt_team_f">Команда %s</string>
     <string name="scr_game_btn_guessed">Угадано</string>
-    <string name="scr_game_txt_next_team_f">Ход команды: Команда %s</string>
-    <string name="scr_game_txt_next_phase_f">Ход: %s</string>
+    <string name="scr_game_txt_next_team_f">Ход команды: \nКоманда %s</string>
+    <string name="scr_game_txt_next_phase_f">Ход: \n%s</string>
     <string name="scr_game_txt_phase_1_rules">Объясни слово другими словами (нельзя однокоренные слова и слова на другом языке)</string>
     <string name="scr_game_txt_phase_2_rules">Покажи слово (нельзя использовать слова и другие звуки)</string>
     <string name="scr_game_txt_phase_3_rules">Объясни слово другим ОДНИМ словом (нельзя использовать движения)</string>

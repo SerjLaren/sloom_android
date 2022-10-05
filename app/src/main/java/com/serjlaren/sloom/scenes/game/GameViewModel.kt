@@ -113,15 +113,21 @@ class GameViewModel @Inject constructor(
     }
 
     fun wordGuessedClicked() {
-        gameService.wordGuessed()
+        viewModelScope.launch {
+            gameService.wordGuessed()
+        }
     }
 
     fun startPhaseClicked() {
-        gameService.startPhase()
+        viewModelScope.launch {
+            gameService.startPhase()
+        }
     }
 
     fun startTeamMoveClicked() {
-        gameService.startMove()
+        viewModelScope.launch {
+            gameService.startMove()
+        }
     }
 
     fun finishGameButtonClicked() {
