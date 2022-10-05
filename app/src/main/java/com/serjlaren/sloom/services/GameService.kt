@@ -4,8 +4,6 @@ package com.serjlaren.sloom.services
 import com.serjlaren.sloom.data.domain.game.*
 import com.serjlaren.sloom.data.domain.teams.Team
 import com.serjlaren.sloom.data.domain.teams.team
-import com.serjlaren.sloom.data.domain.words.Word
-import com.serjlaren.sloom.data.domain.words.WordLevel
 import com.serjlaren.sloom.data.domain.words.WordTopic
 import com.serjlaren.sloom.data.domain.words.word
 import com.serjlaren.sloom.di.DispatcherIO
@@ -21,6 +19,7 @@ class GameService @Inject constructor(
     @DispatcherIO private val ioDispatcher: CoroutineDispatcher,
     private val timerService: TimerService,
     private val audioService: AudioService,
+    private val databaseService: DatabaseService,
 ) {
 
     private val currentGameStateFlowInternal = MutableSharedFlow<GameState>(
@@ -66,8 +65,9 @@ class GameService @Inject constructor(
             this.secondsPerMove = secondsPerMove
             wordsTopics = wordTopicsIndexes.map { WordTopic.fromIndex(it) }
         }.let { gameSettings ->
+            val gameWords = databaseService.getTopicsWords(gameSettings.wordsTopics, wordsCount)
             currentGame = game {
-                allWords = TestWords.getTestWords()
+                allWords = gameWords
                 teams = initTeams(gameSettings.teamsCount)
                 phase = GamePhase.First
                 settings = gameSettings
@@ -161,19 +161,4 @@ class GameService @Inject constructor(
         moveInitialTeam = teams.first()
         return teams
     }
-}
-
-object TestWords{
-    fun getTestWords() = listOf(
-        Word("Кот", WordLevel.All, WordTopic.All),
-        Word("Собака", WordLevel.All, WordTopic.All),
-        Word("Дом", WordLevel.All, WordTopic.All),
-        Word("Вода", WordLevel.All, WordTopic.All),
-        Word("Солнце", WordLevel.All, WordTopic.All),
-        Word("Стакан", WordLevel.All, WordTopic.All),
-        Word("Ложка", WordLevel.All, WordTopic.All),
-        Word("Футбол", WordLevel.All, WordTopic.All),
-        Word("Игра", WordLevel.All, WordTopic.All),
-        Word("Стул", WordLevel.All, WordTopic.All),
-    )
 }

@@ -36,7 +36,7 @@
     <string name="scr_game_btn_game_finished">Закончить</string>
     <string name="scr_game_txt_game_results">Результат: \n%s</string>
 
-    <string name="scr_about_txt_about">Привет. Эта игра написана для приятного и интересного времяпровождения в кругу близких людей. Исходный код доступен по кнопке внизу. Приятного вечера :)</string>
+    <string name="scr_about_txt_about">Привет! Эта игра написана для приятного и интересного времяпровождения в кругу близких людей. Исходный код доступен по кнопке ниже. Приятного вечера :)</string>
     <string name="scr_about_btn_source_code">Исходный код</string>
     <string name="scr_about_btn_about_me">Обо мне</string>
 </resources>

@@ -13,8 +13,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.serjlaren.sloom.common.extensions.scaleObjectAnimators
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 @Suppress("MagicNumber")
+@AndroidEntryPoint
 class SplashFragment : BaseFragment<SplashViewModel>(R.layout.fragment_splash) {
 
     override val viewModel: SplashViewModel by viewModels()
