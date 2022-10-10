@@ -39,11 +39,7 @@ class GameSettingsViewModel @Inject constructor(
             when (enumValue) {
                 WordTopic.All -> resourcesService.getString(R.string.scr_any_txt_word_topic_all)
                 WordTopic.Animal -> resourcesService.getString(R.string.scr_any_txt_word_topic_animal)
-                WordTopic.Person -> resourcesService.getString(R.string.scr_any_txt_word_topic_person)
-                WordTopic.Profession -> resourcesService.getString(R.string.scr_any_txt_word_topic_profession)
                 WordTopic.Action -> resourcesService.getString(R.string.scr_any_txt_word_topic_action)
-                WordTopic.Clothes -> resourcesService.getString(R.string.scr_any_txt_word_topic_clothes)
-                WordTopic.Transport -> resourcesService.getString(R.string.scr_any_txt_word_topic_transport)
                 WordTopic.Bible -> resourcesService.getString(R.string.scr_any_txt_word_topic_bible)
             }
         }

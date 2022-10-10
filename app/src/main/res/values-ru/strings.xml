@@ -7,11 +7,7 @@
 
     <string name="scr_any_txt_word_topic_all">Все</string>
     <string name="scr_any_txt_word_topic_animal">Животные</string>
-    <string name="scr_any_txt_word_topic_person">Люди</string>
-    <string name="scr_any_txt_word_topic_profession">Профессии</string>
     <string name="scr_any_txt_word_topic_action">Действия</string>
-    <string name="scr_any_txt_word_topic_clothes">Одежда</string>
-    <string name="scr_any_txt_word_topic_transport">Транспорт</string>
     <string name="scr_any_txt_word_topic_bible">Библия</string>
 
     <string name="scr_main_btn_play">Играть</string>

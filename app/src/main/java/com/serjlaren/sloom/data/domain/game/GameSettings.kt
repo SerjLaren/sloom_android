@@ -29,9 +29,9 @@ class GameSettings(
         const val minTeamsCount = 2
         const val maxTeamsCount = 4
         const val minWordsCount = 10
-        const val maxWordsCount = 60
+        const val maxWordsCount = 30
         const val minSecondsPerMove = 10
-        const val maxSecondsPerMove = 60
+        const val maxSecondsPerMove = 40
 
         const val defaultTeamsCount = 2
         const val defaultWordsCount = 30

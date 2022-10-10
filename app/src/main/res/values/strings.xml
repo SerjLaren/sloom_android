@@ -7,11 +7,7 @@
 
     <string name="scr_any_txt_word_topic_all">All</string>
     <string name="scr_any_txt_word_topic_animal">Animal</string>
-    <string name="scr_any_txt_word_topic_person">Person</string>
-    <string name="scr_any_txt_word_topic_profession">Profession</string>
     <string name="scr_any_txt_word_topic_action">Action</string>
-    <string name="scr_any_txt_word_topic_clothes">Clothes</string>
-    <string name="scr_any_txt_word_topic_transport">Transport</string>
     <string name="scr_any_txt_word_topic_bible">Bible</string>
 
     <string name="scr_main_btn_play">Play</string>

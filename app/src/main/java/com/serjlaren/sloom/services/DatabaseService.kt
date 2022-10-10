@@ -3,7 +3,6 @@ package com.serjlaren.sloom.services
 import com.serjlaren.sloom.data.database.dao.WordsDao
 import com.serjlaren.sloom.data.database.entities.WordEntity
 import com.serjlaren.sloom.data.domain.words.Word
-import com.serjlaren.sloom.data.domain.words.WordLevel
 import com.serjlaren.sloom.data.domain.words.WordTopic
 import com.serjlaren.sloom.data.domain.words.word
 import com.serjlaren.sloom.di.DispatcherIO
@@ -26,7 +25,6 @@ class DatabaseService @Inject constructor(
             return@withContext result.shuffled().subList(0, wordsCount).map { wordEntity ->
                 word {
                     word = wordEntity.word
-                    level = WordLevel.fromId(wordEntity.wordLevel)
                     topic = WordTopic.fromId(wordEntity.wordTopic)
                 }
             }

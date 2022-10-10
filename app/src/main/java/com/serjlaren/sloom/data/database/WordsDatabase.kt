@@ -11,7 +11,7 @@ abstract class WordsDatabase : RoomDatabase() {
     internal abstract fun wordsDao(): WordsDao
 
     companion object {
-        const val databaseName = "wordsDatabase"
-        const val wordEntitiesName = "wordsEntities"
+        const val databaseName = "words_database"
+        const val wordEntitiesName = "words_entities"
     }
 }

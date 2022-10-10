@@ -9,6 +9,5 @@ data class WordEntity(
     @PrimaryKey
     val id: Long,
     val word: String,
-    val wordLevel: Int,
     val wordTopic: Int,
 )
