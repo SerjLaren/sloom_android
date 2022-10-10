@@ -20,7 +20,12 @@ class DatabaseService @Inject constructor(
         withContext(ioDispatcher) {
             val result = mutableListOf<WordEntity>()
             topics.forEach { wordTopic ->
-                result.addAll(wordsDao.getTopicWords(wordTopic.id))
+                if (wordTopic == WordTopic.All) {
+                    result.addAll(wordsDao.getAllWords(wordsCount))
+                }
+                else {
+                    result.addAll(wordsDao.getTopicWords(wordTopic.id))
+                }
             }
             return@withContext result.shuffled().subList(0, wordsCount).map { wordEntity ->
                 word {

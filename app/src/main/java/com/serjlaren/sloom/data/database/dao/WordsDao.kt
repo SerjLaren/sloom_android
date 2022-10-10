@@ -7,6 +7,9 @@ import com.serjlaren.sloom.data.database.entities.WordEntity
 
 @Dao
 interface WordsDao {
+    @Query("SELECT * FROM ${WordsDatabase.wordEntitiesName} ORDER BY RANDOM() LIMIT :wordsCount")
+    suspend fun getAllWords(wordsCount: Int): List<WordEntity>
+
     @Query("SELECT * FROM ${WordsDatabase.wordEntitiesName} WHERE wordTopic = :topic")
     suspend fun getTopicWords(topic: Int): List<WordEntity>
 }
