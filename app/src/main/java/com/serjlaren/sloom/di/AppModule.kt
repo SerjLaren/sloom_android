@@ -39,7 +39,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideWordsDatabase(@ApplicationContext context: Context) = Room.databaseBuilder(
-        context.applicationContext,
+        context,
         WordsDatabase::class.java,
         WordsDatabase.databaseName,
     )
