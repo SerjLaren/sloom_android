@@ -31,6 +31,7 @@ class AboutViewModel @Inject constructor(
     }
 
     fun aboutMeButtonClicked() {
-        navigateToScreen(Screen.ExternalScreen.AboutMe())
+        //TODO Later
+        //navigateToScreen(Screen.ExternalScreen.AboutMe())
     }
 }
