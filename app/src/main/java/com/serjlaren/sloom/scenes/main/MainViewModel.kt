@@ -19,12 +19,14 @@ class MainViewModel @Inject constructor(
     val playButtonText = Text()
     val rulesButtonText = Text()
     val aboutButtonText = Text()
+    val additionalInfoText = Text()
 
     override fun init() {
         viewModelScope.launch {
             playButtonText.emitValueSuspend(resourcesService.getString(R.string.scr_main_btn_play))
             rulesButtonText.emitValueSuspend(resourcesService.getString(R.string.scr_main_btn_rules))
             aboutButtonText.emitValueSuspend(resourcesService.getString(R.string.scr_main_btn_about))
+            additionalInfoText.emitValueSuspend(resourcesService.getString(R.string.temp_additional_info))
         }
     }
 
@@ -33,7 +35,8 @@ class MainViewModel @Inject constructor(
     }
 
     fun rulesClicked() {
-        navigateToScreen(Screen.AppScreen.Rules)
+        showToast(resourcesService.getString(R.string.temp_rules_info))
+        //navigateToScreen(Screen.AppScreen.Rules)
     }
 
     fun aboutClicked() {

@@ -29,6 +29,7 @@ class MainFragment : BaseFragment<MainViewModel>(R.layout.fragment_main) {
                 bindText(playButtonText, playTextView)
                 bindText(rulesButtonText, rulesTextView)
                 bindText(aboutButtonText, aboutTextView)
+                bindText(additionalInfoText, additionalInfoTextView)
             }
         }
     }

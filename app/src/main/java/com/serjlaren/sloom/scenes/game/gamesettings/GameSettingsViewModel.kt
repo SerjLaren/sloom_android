@@ -58,7 +58,7 @@ class GameSettingsViewModel @Inject constructor(
             maxWordsCount.emitValueSuspend(gameService.maxWordsCount)
             minSecondsPerMove.emitValueSuspend(gameService.minSecondsPerMove)
             maxSecondsPerMove.emitValueSuspend(gameService.maxSecondsPerMove)
-            wordsTopics.emitValueSuspend(wordTopicsNames)
+            wordsTopics.emitValueSuspend(listOf(wordTopicsNames.first())) //TODO replace with wordTopicsNames later
         }
     }
 

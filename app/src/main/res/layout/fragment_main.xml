@@ -106,4 +106,17 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/additionalInfoTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="16sp"
+        android:textColor="@color/purple_200"
+        android:fontFamily="sans-serif-condensed-medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Version 1.0"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

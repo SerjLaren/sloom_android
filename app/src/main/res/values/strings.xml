@@ -35,4 +35,7 @@
     <string name="scr_about_txt_about">Hello. This game is written for a pleasant and interesting pastime in the circle of close people. The source code is available via the button below. Have a nice evening :)</string>
     <string name="scr_about_btn_source_code">Source code</string>
     <string name="scr_about_btn_about_me">About me</string>
+
+    <string name="temp_rules_info">Rules screen is in process</string>
+    <string name="temp_additional_info">Version is in open testing now</string>
 </resources>

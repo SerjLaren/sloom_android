@@ -44,7 +44,7 @@ object AppModule {
         WordsDatabase.databaseName,
     )
         .fallbackToDestructiveMigration()
-        .createFromAsset("")
+        .createFromAsset("databases/sloom_words.db")
         .build()
 
     @Singleton
