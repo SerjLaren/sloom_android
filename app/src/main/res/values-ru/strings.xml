@@ -35,6 +35,7 @@
     <string name="scr_about_txt_about">Привет! Эта игра написана для приятного и интересного времяпровождения в кругу близких людей. Исходный код доступен по кнопке ниже. Приятного вечера :)</string>
     <string name="scr_about_btn_source_code">Исходный код</string>
     <string name="scr_about_btn_about_me">Обо мне</string>
+    <string name="scr_about_btn_feedback">Написать мне</string>
 
     <string name="temp_rules_info">Экран правил еще не готов</string>
     <string name="temp_about_me">Будет позже</string>

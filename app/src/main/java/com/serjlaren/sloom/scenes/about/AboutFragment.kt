@@ -21,6 +21,9 @@ class AboutFragment : BaseFragment<AboutViewModel>(R.layout.fragment_about) {
             aboutMeClickableLayout.setOnClickListener {
                 viewModel.aboutMeButtonClicked()
             }
+            feedbackClickableLayout.setOnClickListener {
+                viewModel.feedbackButtonClicked()
+            }
         }
     }
 
@@ -31,6 +34,7 @@ class AboutFragment : BaseFragment<AboutViewModel>(R.layout.fragment_about) {
                 bindText(aboutText, aboutTextView)
                 bindText(sourceCodeButtonText, sourceCodeTextView)
                 bindText(aboutMeButtonText, aboutMeTextView)
+                bindText(feedbackButtonText, feedbackTextView)
             }
         }
     }

@@ -79,6 +79,18 @@ abstract class BaseFragment<TViewModel : BaseViewModel>(@LayoutRes layoutResId: 
                             Uri.parse(screen.url)
                         )
                     )
+                    is Screen.ExternalScreen.FeedbackMail -> {
+                        val intent = Intent(Intent.ACTION_SENDTO).apply {
+                            data = Uri.parse("mailto:")
+                            putExtra(Intent.EXTRA_EMAIL, arrayOf(screen.mailTo))
+                            putExtra(Intent.EXTRA_SUBJECT, screen.subject)
+                        }
+                        kotlin.runCatching {
+                            startActivity(intent)
+                        }.onFailure {
+                            //TODO
+                        }
+                    }
                 }
             }
             bindCommand(navigateBackCommand) {

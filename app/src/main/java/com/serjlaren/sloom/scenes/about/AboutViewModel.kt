@@ -17,12 +17,14 @@ class AboutViewModel @Inject constructor(
     val aboutText = Text()
     val sourceCodeButtonText = Text()
     val aboutMeButtonText = Text()
+    val feedbackButtonText = Text()
 
     override fun init() {
         viewModelScope.launch {
             aboutText.emitValueSuspend(resourcesService.getString(R.string.scr_about_txt_about))
             sourceCodeButtonText.emitValueSuspend(resourcesService.getString(R.string.scr_about_btn_source_code))
             aboutMeButtonText.emitValueSuspend(resourcesService.getString(R.string.scr_about_btn_about_me))
+            feedbackButtonText.emitValueSuspend(resourcesService.getString(R.string.scr_about_btn_feedback))
         }
     }
 
@@ -34,5 +36,9 @@ class AboutViewModel @Inject constructor(
         //TODO Later
         showToast(resourcesService.getString(R.string.temp_about_me))
         //navigateToScreen(Screen.ExternalScreen.AboutMe())
+    }
+
+    fun feedbackButtonClicked() {
+        navigateToScreen(Screen.ExternalScreen.FeedbackMail())
     }
 }

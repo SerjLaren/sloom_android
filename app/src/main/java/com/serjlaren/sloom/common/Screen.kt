@@ -14,5 +14,6 @@ sealed class Screen {
     sealed class ExternalScreen : Screen() {
         class SourceCode(val url: String = "https://github.com/SerjLaren/sloom_android"): ExternalScreen()
         class AboutMe(val url: String = "https://about.me/serjlaren"): ExternalScreen()
+        class FeedbackMail(val mailTo: String = "biblegamedev@gmail.com", val subject: String = "Message from SLoom game"): ExternalScreen()
     }
 }
