@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SLoom</string>
+    <string name="app_name">Boom</string>
     <string name="by_serjlaren">от SerjLaren</string>
 
     <string name="scr_any_ok">OK</string>
@@ -25,9 +25,9 @@
     <string name="scr_game_btn_guessed">Угадано</string>
     <string name="scr_game_txt_next_team_f">Ход команды: \nКоманда %s</string>
     <string name="scr_game_txt_next_phase_f">Ход: \n%s</string>
-    <string name="scr_game_txt_phase_1_rules">Объясни слово другими словами (нельзя однокоренные слова и слова на другом языке)</string>
-    <string name="scr_game_txt_phase_2_rules">Покажи слово (нельзя использовать слова и другие звуки)</string>
-    <string name="scr_game_txt_phase_3_rules">Объясни слово другим ОДНИМ словом (нельзя использовать движения)</string>
+    <string name="scr_game_txt_phase_1_rules">Объясни слово другими словами \n(нельзя однокоренные слова и слова на другом языке)</string>
+    <string name="scr_game_txt_phase_2_rules">Покажи слово \n(нельзя использовать слова и другие звуки)</string>
+    <string name="scr_game_txt_phase_3_rules">Объясни слово другим ОДНИМ словом \n(нельзя использовать движения)</string>
     <string name="scr_game_btn_start">Начать</string>
     <string name="scr_game_btn_game_finished">Закончить</string>
     <string name="scr_game_txt_game_results">Результат: \n%s</string>
@@ -37,5 +37,6 @@
     <string name="scr_about_btn_about_me">Обо мне</string>
 
     <string name="temp_rules_info">Экран правил еще не готов</string>
-    <string name="temp_additional_info">Игра еще не готова полностью, но это не должно помешать вам играть :)</string>
+    <string name="temp_about_me">Будет позже</string>
+    <string name="temp_additional_info">Игра еще не готова полностью, но играть уже можно :)</string>
 </resources>

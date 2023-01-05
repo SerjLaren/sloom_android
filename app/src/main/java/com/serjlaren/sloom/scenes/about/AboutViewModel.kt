@@ -32,6 +32,7 @@ class AboutViewModel @Inject constructor(
 
     fun aboutMeButtonClicked() {
         //TODO Later
+        showToast(resourcesService.getString(R.string.temp_about_me))
         //navigateToScreen(Screen.ExternalScreen.AboutMe())
     }
 }

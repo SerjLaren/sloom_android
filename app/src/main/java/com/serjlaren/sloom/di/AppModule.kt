@@ -12,6 +12,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import java.util.Locale
 import javax.inject.Singleton
 
 @Module
@@ -44,7 +45,12 @@ object AppModule {
         WordsDatabase.databaseName,
     )
         .fallbackToDestructiveMigration()
-        .createFromAsset("databases/sloom_words.db")
+        .createFromAsset(
+            if (Locale.getDefault().language == "ru")
+                "databases/sloom_words_ru.db"
+            else
+                "databases/sloom_words.db"
+        )
         .build()
 
     @Singleton

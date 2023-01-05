@@ -13,7 +13,7 @@ android {
         minSdk 21
         targetSdk 32
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -69,6 +69,10 @@ dependencies {
 
     def version_lottie = "5.2.0"
     implementation "com.airbnb.android:lottie:$version_lottie"
+
+    def version_appCenter = "4.4.5"
+    implementation "com.microsoft.appcenter:appcenter-analytics:$version_appCenter"
+    implementation "com.microsoft.appcenter:appcenter-crashes:$version_appCenter"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

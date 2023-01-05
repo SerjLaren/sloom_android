@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SLoom</string>
+    <string name="app_name">Boom</string>
     <string name="by_serjlaren">by SerjLaren</string>
 
     <string name="scr_any_ok">OK</string>
@@ -25,9 +25,9 @@
     <string name="scr_game_btn_guessed">Guessed</string>
     <string name="scr_game_txt_next_team_f">Team move: \nTeam %s</string>
     <string name="scr_game_txt_next_phase_f">Round: \n%s</string>
-    <string name="scr_game_txt_phase_1_rules">Explain the word in other words (you can not use the same root words and the words in another language)</string>
-    <string name="scr_game_txt_phase_2_rules">Show the word (you can not use words and other sounds)</string>
-    <string name="scr_game_txt_phase_3_rules">Explain the word by another ONE word (you can not use movements)</string>
+    <string name="scr_game_txt_phase_1_rules">Explain the word in other words \n(you can not use the same root words and the words in another language)</string>
+    <string name="scr_game_txt_phase_2_rules">Show the word \n(you can not use words and other sounds)</string>
+    <string name="scr_game_txt_phase_3_rules">Explain the word by another ONE word \n(you can not use movements)</string>
     <string name="scr_game_btn_start">Start</string>
     <string name="scr_game_btn_game_finished">Finish</string>
     <string name="scr_game_txt_game_results">Results: \n%s</string>
@@ -37,5 +37,6 @@
     <string name="scr_about_btn_about_me">About me</string>
 
     <string name="temp_rules_info">Rules screen is in process</string>
-    <string name="temp_additional_info">Version is in open testing now</string>
+    <string name="temp_about_me">Later</string>
+    <string name="temp_additional_info">The game is not fully ready yet, but you can already play it!</string>
 </resources>
