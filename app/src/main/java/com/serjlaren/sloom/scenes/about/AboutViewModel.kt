@@ -29,9 +29,7 @@ class AboutViewModel @Inject constructor(
     }
 
     fun sourceCodeButtonClicked() {
-        //TODO Later
-        showToast(resourcesService.getString(R.string.temp_about_me))
-        //navigateToScreen(Screen.ExternalScreen.SourceCode())
+        navigateToScreen(Screen.ExternalScreen.SourceCode())
     }
 
     fun aboutMeButtonClicked() {
